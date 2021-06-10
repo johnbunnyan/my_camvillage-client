@@ -5,7 +5,7 @@ function Search() {
   return (
     <div>
       <Nav />
-      <div id="search-body"></div>
+      <div id="search-body">Search</div>
     </div>
   );
 }

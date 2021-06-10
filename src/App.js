@@ -1,5 +1,6 @@
 import React from 'react';
 import Footer from './components/Footer';
+import Nav from './components/Nav';
 import Alter from './pages/Alter';
 import Login from './pages/Login';
 import Main from './pages/Main';
@@ -29,9 +30,10 @@ import {
 
 function App() {
   const state = useSelector(state => state);
-
+  const path = window.location.pathname.slice(1);
   return (
     <Router>
+      { (path !== 'user/login' && path !== 'user/signup') && <Nav /> }
       <Switch>
         <Route path='/main' render={() => <Main />}>
         </Route> 
@@ -53,16 +55,16 @@ function App() {
         <Route path='/item/upload' render={() => <Upload />}> 
           
         </Route> 
-        <Route path='/search/*' render={() => <Search />}> 
+        <Route path='/search*' render={() => <Search />}> 
           
         </Route> 
         <Route
-            path='/'
+            exact path='/'
             render={() => {
               if (state.isLogin) { // is logged in
                 return <Redirect to='/main' />;
               }
-              return <Redirect to='/login' />;
+              return <Redirect to='/user/login' />;
             }}
           />
       </Switch>
