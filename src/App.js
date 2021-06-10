@@ -29,8 +29,14 @@ import {
 
 
 function App() {
-  const state = useSelector(state => state);
   const path = window.location.pathname.slice(1);
+  const {isLogin, userInfo} = useSelector((state) => {
+    return {
+      isLogin: state.isLogin,
+      userInfo: state.userInfo
+    };
+  })
+  
   return (
     <Router>
       { (path !== 'user/login' && path !== 'user/signup') && <Nav /> }
@@ -61,7 +67,8 @@ function App() {
         <Route
             exact path='/'
             render={() => {
-              if (state.isLogin) { // is logged in
+              console.log(isLogin);
+              if (isLogin) { // is logged in
                 return <Redirect to='/main' />;
               }
               return <Redirect to='/user/login' />;
