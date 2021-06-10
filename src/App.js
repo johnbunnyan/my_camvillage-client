@@ -28,7 +28,12 @@ import {
 
 
 function App() {
-  const state = useSelector(state => state);
+  const {isLogin, userInfo} = useSelector((state) => {
+    return {
+      isLogin: state.isLogin,
+      userInfo: state.userInfo
+    };
+  })
 
   return (
     <Router>
@@ -59,10 +64,11 @@ function App() {
         <Route
             path='/'
             render={() => {
-              if (state.isLogin) { // is logged in
+              console.log(isLogin);
+              if (isLogin) { // is logged in
                 return <Redirect to='/main' />;
               }
-              return <Redirect to='/login' />;
+              return <Redirect to='/user/login' />;
             }}
           />
       </Switch>
