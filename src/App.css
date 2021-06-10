@@ -5,6 +5,17 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+}
+
+#root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 #nav-body {
     display: flex;
     justify-content: space-between;
@@ -18,7 +29,7 @@
 }
 
 .dropbtn {
-    padding: 16px;
+    padding: 16px 35px;
     font-size: 16px;
     border: none;
 }
@@ -43,4 +54,26 @@
 
 .dropdown:hover .dropdown-content {
     display: block;
+}
+
+#main-body {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#main-body button {
+    padding: 15px;
+    border: none;
+    font-size: 20px;
+}
+
+#main-body img {
+    height: 400px;
+}
+
+#footer-body {
+    display: flex;
+    justify-content: space-between;
+    border: solid black 1px;
 }

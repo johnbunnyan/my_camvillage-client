@@ -1,5 +1,6 @@
 import React from 'react';
 import Footer from './components/Footer';
+import Nav from './components/Nav';
 import Alter from './pages/Alter';
 import Login from './pages/Login';
 import Main from './pages/Main';
@@ -28,15 +29,17 @@ import {
 
 
 function App() {
+  const path = window.location.pathname.slice(1);
   const {isLogin, userInfo} = useSelector((state) => {
     return {
       isLogin: state.isLogin,
       userInfo: state.userInfo
     };
   })
-
+  
   return (
     <Router>
+      { (path !== 'user/login' && path !== 'user/signup') && <Nav /> }
       <Switch>
         <Route path='/main' render={() => <Main />}>
         </Route> 
@@ -58,11 +61,11 @@ function App() {
         <Route path='/item/upload' render={() => <Upload />}> 
           
         </Route> 
-        <Route path='/search/*' render={() => <Search />}> 
+        <Route path='/search*' render={() => <Search />}> 
           
         </Route> 
         <Route
-            path='/'
+            exact path='/'
             render={() => {
               console.log(isLogin);
               if (isLogin) { // is logged in
