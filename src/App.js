@@ -21,11 +21,11 @@ import {
   Redirect
 } from "react-router-dom";
 
-//컴포넌트화:
-//마이페이지 미리보기 (썸넬 + 제목)ThumbTitle
-//수신 요청 미리보기 (썸넬 + 버튼 or 썸넬 + 내 응답)ThumbTitleStatus/ThumbTitleButton
-//발신 요청 미리보기 (썸넬 + 제목 + 상태)ThumbTitleStatus
-//글 목록 미리보기 (썸넬 + 제목)ThumbTitle
+//미리보기 컴포넌트화:
+//마이페이지 내글 미리보기 (썸넬 + 제목) PrevWTitle
+//수신 요청 미리보기 (썸넬 + 제목 + 버튼 or 내 응답) PrevWButton
+//발신 요청 미리보기 (썸넬 + 제목 + 상태) PrevWStatus
+//글 목록 미리보기 (썸넬 + 제목 + 가격+ 내용) PrevWContent
 
 
 function App() {
