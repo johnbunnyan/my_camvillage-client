@@ -1,4 +1,5 @@
-import { LOGIN, LOGOUT, SIGNUP, SETCATEGORY, SETQUERYSTRING, SETRESULTS } from "../actions/index";
+import { LOGIN, LOGOUT, SIGNUP, SETCATEGORY, SETQUERYSTRING, SETRESULTS, ALTER } from "../actions/index";
+import {USERREQUEST} from "../actions/index";
 import { initialState } from "./initialState";
 
 const reducer = (state = initialState, action) => {
@@ -21,7 +22,11 @@ const reducer = (state = initialState, action) => {
       })
 
     case LOGOUT:
-      return Object.assign({}, state, action.payload);
+      console.log('Logout action = ', action)
+      return Object.assign({}, state, {
+        isLogin: action.payload.isLogin,
+        userInfo: action.payload.userInfo,
+      });
 
     case SETCATEGORY:
       newSearch = {
@@ -48,6 +53,18 @@ const reducer = (state = initialState, action) => {
       };
       return Object.assign({}, state, {
         search: newSearch
+    });  
+
+    case ALTER:
+      console.log('Alter action = ', action)
+      return Object.assign({}, state, {
+        userInfo: action.payload.userInfo,
+    });  
+
+    case USERREQUEST:
+      console.log('userRequest action =' , action)
+      return Object.assign({}, state, {
+        request: action.payload.request,
     });  
     
     default:

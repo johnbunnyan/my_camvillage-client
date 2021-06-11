@@ -8,7 +8,7 @@ function Dropdown() {
     <div className="dropdown">
       <button className="dropbtn">메뉴 ({state.notifications})</button>
       <div className="dropdown-content">
-        <Link to="/mypage">마이페이지 ({state.notifications})</Link>
+        <Link to="/user/mypage">마이페이지 ({state.notifications})</Link>
         <Link to="/logout">로그아웃</Link>
       </div>
     </div>
