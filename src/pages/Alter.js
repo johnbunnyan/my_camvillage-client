@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { userAlter } from '../actions/index';
 import { Link, withRouter, Route } from "react-router-dom";
@@ -67,6 +68,11 @@ function Alter(props) {
     }
   }
 
+=======
+import React from 'react';
+//현준님
+function Alter() {
+>>>>>>> 9222f9694aa7b0e9191b5486923c6a94a6b6c1cf
   return (
     <div id='alter-body'>
       <div id='leftside'>

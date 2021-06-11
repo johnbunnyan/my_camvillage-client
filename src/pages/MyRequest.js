@@ -4,9 +4,12 @@ import PrevWButton from '../components/PrevWButton';
 import PrevWStatus from '../components/PrevWStatus';
 
 function MyRequest() {
+  const [myRequests, setMyRequests] = useState([]);
   const [sentRequests, setSentRequests] = useState([]);
   const [receivedRequests, setReceivedRequests] = useState([]);
 
+  // request + requested consolidated table
+  // api 및 db 확인 필요
   useEffect(() => {
     axios.get('https://localhost:8080/user/request', {
       'Content-Type': 'application/json',
@@ -30,7 +33,7 @@ function MyRequest() {
     
     // const dummySent = [
     //   {
-    //     "id": 1123213,
+    //     "id": 11s23213,
     //     "userId": 'kimcoding',
     //     "title": '텐트 빌려드립니다',
     //     "image": '',
