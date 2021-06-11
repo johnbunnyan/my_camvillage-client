@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategory, setQueryString } from '../actions';
+import { setCategory, setQueryString, setResults } from '../actions';
 import { useHistory } from "react-router-dom";
 
 
