@@ -16,7 +16,7 @@ function Search() {
   useEffect(() => {
   //   // searchResults 저장
   //   axios
-  //   .post('https://localhost:8080/search',
+  //   .post('http://localhost:4000/search',
   //     {
   //       category: category,
   //       queryString: queryString

@@ -11,7 +11,7 @@ function MyRequest() {
   // request + requested consolidated table
   // api 및 db 확인 필요
   useEffect(() => {
-    axios.get('https://localhost:8080/user/request', {
+    axios.get('http://localhost:4000/user/request', {
       'Content-Type': 'application/json',
       'withCredentials': true,
     })
@@ -20,7 +20,7 @@ function MyRequest() {
       console.log(e);
     });
 
-    axios.get('https://localhost:8080/user/requested', {
+    axios.get('http://localhost:4000/user/requested', {
       'Content-Type': 'application/json',
       'withCredentials': true,
     })
