@@ -6,7 +6,7 @@ export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 export const SETCATEGORY = "SETCATEGORY";
 export const SETQUERYSTRING = "SETQUERYSTRING";
-export const SETRESULTS = "SETRESULTS";
+// export const SETRESULTS = "SETRESULTS";
 export const SIGNUP = 'SIGNUP';
 
 // 나중에 필요할 것 같아 미리 생성해 놓음
@@ -52,7 +52,7 @@ export const userSignUp = (user_id, password, name, nickname, email) => {
     password: password,
     name: name,
     nickname: nickname,
-    email: email,
+    email: email, //user image default image
   },
   {
     headers:{
@@ -80,6 +80,17 @@ export const userSignUp = (user_id, password, name, nickname, email) => {
 }
 
 export const userLogout = () => {
+  // axios
+  // .post('https://localhost:8080/user/logout',
+  // {
+  //   'Content-Type': 'application/json',
+  //   'withCredentials': true,
+  // })
+  // .then(res => res) // 없어도 되는지?
+  // .catch((e) => {
+  //   console.log(e);
+  // })
+
   return {
     type: LOGOUT,
     payload: {
@@ -108,11 +119,23 @@ export const setQueryString = (queryString) => {
   }
 }
 
-export const setResults = (searchResults) => {
-  return {
-    type: SETRESULTS,
-    payload: {
-      search: { searchResults }
-    }
-  }
-}
+// export const setResults = (category, queryString) => {
+//   const data = 
+//     axios
+//     .post('https://localhost:8080/search',
+//       {
+//         category: category,
+//         queryString: queryString
+//       })
+//     .then(res => res.data)
+//     .catch(e => {
+//       console.log(e);
+//       });
+
+//   return {
+//     type: SETRESULTS,
+//     payload: {
+//       search: { searchResults: data }
+//     }
+//   }
+// }

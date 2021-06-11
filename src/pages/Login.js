@@ -27,7 +27,7 @@ function Login(props) {
       setErrorMessage('');
       dispatch(userLogin(UserId,Password))
       console.log('로그인에 성공했습니다');
-        props.history.push('/')
+      props.history.push('/')
     }
   }
 

@@ -8,40 +8,112 @@ function MyRequest() {
   const [receivedRequests, setReceivedRequests] = useState([]);
 
   useEffect(() => {
-    setSentRequests(axios.get('https://localhost:8080/user/request', {
+    axios.get('https://localhost:8080/user/request', {
       'Content-Type': 'application/json',
       'withCredentials': true,
     })
-    .then((res) => res.data)
+    .then((res) => setSentRequests(res.data))
     .catch((e) => {
       console.log(e);
-    }));
-    
-    setReceivedRequests(axios.get('https://localhost:8080/user/requested', {
-      'Content-Type': 'application/json',
-      'withCredentials': true,
-    })
-    .then((res) => res.data)
-    .catch((e) => {
-      console.log(e);
-    }));
-  })
+    });
 
+    axios.get('https://localhost:8080/user/requested', {
+      'Content-Type': 'application/json',
+      'withCredentials': true,
+    })
+    .then((res) => setReceivedRequests(res.data))
+    .catch((e) => {
+      console.log(e);
+    });
+
+    // const date = new Date();
+    
+    // const dummySent = [
+    //   {
+    //     "id": 1123213,
+    //     "userId": 'kimcoding',
+    //     "title": '텐트 빌려드립니다',
+    //     "image": '',
+    //     "confirmation": '0', // '0': no response, '1': yes, '2': no
+    //     "createdAt": date,
+    //     "updatedAt": date
+    //   },
+    //   {
+    //     "id": 1123213,
+    //     "userId": 'kimcoding',
+    //     "title": '텐트 빌려드립니다',
+    //     "image": '',
+    //     "confirmation": '1', // '0': no response, '1': yes, '2': no
+    //     "createdAt": date,
+    //     "updatedAt": date
+    //   },
+    //   {
+    //     "id": 1123213,
+    //     "userId": 'kimcoding',
+    //     "title": '텐트 빌려드립니다',
+    //     "image": '',
+    //     "confirmation": '2', // '0': no response, '1': yes, '2': no
+    //     "createdAt": date,
+    //     "updatedAt": date
+    //   }
+    // ]
+    // const dummyReceived = [
+    //   {
+    //     "id": 24353,
+    //     "userId": 'parkhacker',
+    //     "title": '파란 텐트 빌려드립니다',
+    //     "image": '',
+    //     "confirmation": '1', // '0': no response, '1': yes, '2': no
+    //     "createdAt": date,
+    //     "updatedAt": date
+    //   },
+    //   {
+    //     "id": 24353,
+    //     "userId": 'parkhacker',
+    //     "title": '파란 텐트 빌려드립니다',
+    //     "image": '',
+    //     "confirmation": '0', // '0': no response, '1': yes, '2': no
+    //     "createdAt": date,
+    //     "updatedAt": date
+    //   },
+    //   {
+    //     "id": 24353,
+    //     "userId": 'parkhacker',
+    //     "title": '파란 텐트 빌려드립니다',
+    //     "image": '',
+    //     "confirmation": '2', // '0': no response, '1': yes, '2': no
+    //     "createdAt": date,
+    //     "updatedAt": date
+    //   }
+    // ]
+
+    // setSentRequests(dummySent);
+    // setReceivedRequests(dummyReceived);
+  })
+  
   return (
     <div id="myrequest-body">
       <div id="received-request">
         <div id="received-request-title">내가 받은 대여 요청</div>
         {
-          sentRequests.map(sentRequests => 
-            <PrevWButton img={sentRequests.img} title={sentRequests.title} item_id={sentRequests.id} content={sentRequests.content}/> // db에 저장되는 형태 보고 다시 수정 필요
+          sentRequests.map(({ image, title, id, confirmation }) => 
+            <PrevWButton
+            image={image}
+            title={title}
+            id={id}
+            confirmation={confirmation} />
           )
         }
       </div>
       <div id="sent-request">
         <div id="sent-request-title">내가 보낸 대여 요청</div>
         {
-          receivedRequests.map(receivedRequests => 
-            <PrevWStatus img={receivedRequests.img} title={receivedRequests.title} item_id={receivedRequests.id} content={receivedRequests.content}/> // db에 저장되는 형태 보고 다시 수정 필요
+          receivedRequests.map(({ image, title, id, confirmation }) => 
+            <PrevWStatus
+            image={image}
+            title={title}
+            id={id}
+            confirmation={confirmation} />
           )
         }
       </div>
