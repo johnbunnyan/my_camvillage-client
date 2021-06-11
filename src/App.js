@@ -49,13 +49,13 @@ function App() {
         <Route path='/user/signup' render={() => <Signup />}>
           
         </Route> 
-        <Route path='/user/mypage' render={() => <MyPage />}>
+        <Route path='/user/mypage' render={() => <MyPage userInfo={userInfo}/>}>
           
         </Route> 
         <Route path='/user/request' render={() => <MyRequest />}> 
           
         </Route> 
-        <Route path='/user/alter' render={() => <Alter />}> 
+        <Route path='/user/alter' render={() => <Alter userInfo={userInfo}/>}> 
           
         </Route> 
         <Route path='/item/upload' render={() => <Upload />}> 
