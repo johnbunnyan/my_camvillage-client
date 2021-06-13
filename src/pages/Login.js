@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { userLogin } from '../actions/index';
 import { Link, withRouter, Route } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 function Login(props) {
 

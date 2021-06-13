@@ -77,3 +77,54 @@ html, body {
     justify-content: space-between;
     border: solid black 1px;
 }
+
+#myrequest-body {
+    display: flex;
+    justify-content: space-around;
+    height: 100%;
+    padding: 10px;
+}
+
+.prevwbutton-body {
+    display: flex;
+}
+
+.prevwbutton-body * {
+    margin: 5px;
+}
+
+.prevwstatus-body {
+    display: flex;
+}
+
+.prevwstatus-body * {
+    margin: 5px;
+}
+
+#item-body {
+    display: flex;
+}
+
+#item-request-btn {
+    width: 100%;
+}
+
+#upload-body {
+    display: flex;
+}
+
+.upload-form * {
+    display: block;
+}
+
+.upload-form-hashtag {
+    display: flex;
+}
+
+.upload-form-hashtag > ul {
+    display: flex;
+}
+
+.upload-form-hashtag > ul * {
+    display: flex;
+}
