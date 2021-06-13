@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 
 function Upload() {
@@ -13,10 +14,10 @@ function Upload() {
     price: 0,
     description: '',
     image: ''
-  })
+  });
 
   const { hashtag } = inputs;
-  const presetCat = ['주거용품', '가구용품', '취침용품', '주방용품', '악세사리', '기타용품', '방한용품']
+  const itemCategory = useSelector(state => state.itemCategory);
 
   const handleChange = (e) => {
     const {value, name} = e.currentTarget;
@@ -30,10 +31,11 @@ function Upload() {
   function handleSubmit(event) {
     event.preventDefault();
     console.log(inputs)
-    axios.post('http://localhost:4000/upload', inputs)
-    .then()
-    .catch(e => console.log(e));
-    history.push(`/main`)
+    // axios.post('http://localhost:4000/upload', inputs)
+    // .then(res => {
+    //   history.push(`item/${res.data.id}`)
+    // })
+    // .catch(e => console.log(e));
   }
 
   function handleImage(event) {
@@ -97,7 +99,7 @@ function Upload() {
         </div>
         <select name="category" onChange={handleChange}>
           {
-            presetCat.map(i => (
+            itemCategory.map(i => (
               <option value={i}>{i}</option>
             ))
           }

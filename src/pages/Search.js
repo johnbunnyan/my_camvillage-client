@@ -36,7 +36,7 @@ function Search() {
       // #감성캠핑
       setSearchMessage(`#${queryString} (${searchResults.length})`);
     }
-  }, [category, queryString, searchResults.length, nickname])
+  }, [])
   
   return (
     <div id="search-body">
