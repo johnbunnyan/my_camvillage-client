@@ -4,9 +4,6 @@ import { useSelector } from 'react-redux';
 import PrevWContent from '../components/PrevWContent';
 
 function Search() {
-  //   //category = 'title' 이면 queryString을 포함하는 title 검색
-  //   //category = 'nickname' 이면 queryString 일치 nickname 검색
-  //   //category = 'hashtag' 이면 queryString 일치 hashtag 검색
   const [searchResults, setSearchResults] = useState([]);
   const [searchMessage, setSearchMessage] = useState('');
 
@@ -14,39 +11,17 @@ function Search() {
   const { nickname } = useSelector(state => state.userInfo);
 
   useEffect(() => {
-  //   // searchResults 저장
-  //   axios
-  //   .post('http://localhost:4000/search',
-  //     {
-  //       category: category,
-  //       queryString: queryString
-  //     })
-  //   .then(res => setSearchResults(res.data))
-  //   .catch(e => {
-  //     console.log(e);
-  //     });
-
-    const date = new Date();
-    
-    const dummyData = [
+    axios
+    .post('http://localhost:4000/search',
       {
-        "id": 1,
-        "userId": 'kimcoding', //닉네임이 안 오고 있음
-        "title": '텐트 빌려드립니다',
-        "description": '이쁜 텐트를 빌려드립니다',
-        "brand": '캠핑브랜드',
-        "price": 100000000000,
-        "hashtag": ['감성캠핑', '캠핑초보', '글램핑'], // array
-        "image": 'https://www.rei.com/media/3ee1090b-fb1d-406e-9ba7-9bc5b0cec97d?size=784x588',
-        "createdAt": date,
-        "updatedAt": date,
-        "categoryId": 1
-      }
-    ]
-
-    setSearchResults(dummyData)
-    
-    // searchMessage 저장
+        category: category,
+        queryString: queryString
+      })
+    .then(res => setSearchResults(res.data))
+    .catch(e => {
+      console.log(e);
+      });
+      
     if (category === 'title') { 
       //category = 'title' 이면 queryString을 포함하는 title 검색
       // 검색 결과: 텐트 (341)

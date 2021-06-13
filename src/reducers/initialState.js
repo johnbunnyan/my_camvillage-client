@@ -2,7 +2,11 @@ export const initialState =
 {
   isLogin: false,
   userInfo: {
-    nickname: '캠핑조아'
+    user_id: '',
+    name: '',
+    nickname: '',
+    email: '',
+    user_image: ''
   },
   notifications: 0,
   accessToken: '',

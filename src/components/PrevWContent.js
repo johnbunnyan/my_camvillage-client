@@ -7,6 +7,8 @@ function PrevWContent({ image, title, price, id, description }) {
 //   {
 //     "id": PK,
 //     "userId": "userId",
+//     "nickname": "nickname",
+//     "user_image": "user_image",
 //     "title": "title",
 //     "description": "description",
 //     "brand": "brand",
@@ -25,8 +27,8 @@ function PrevWContent({ image, title, price, id, description }) {
   
   return (
     <div className="prevwcontent-body">
-      <img className="prevwcontent-img" src={`${image}`} alt={`item #${id} image`}></img>
-      <div id={`${id}`} onClick={handleClick}>{title}</div>
+      <img className="prevwcontent-img" src={image} alt={`item #${id}`}></img>
+      <div id={id} onClick={handleClick}>{title}</div>
       <div className="prevwcontent-price">{price}</div>
       <div className="prevwcontent-description">{description}</div>
     </div>

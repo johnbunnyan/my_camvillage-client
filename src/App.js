@@ -2,6 +2,7 @@ import React from 'react';
 import Footer from './components/Footer';
 import Nav from './components/Nav';
 import Alter from './pages/Alter';
+import Item from './pages/Item';
 import Login from './pages/Login';
 import Main from './pages/Main';
 import MyPage from './pages/MyPage';
@@ -27,19 +28,23 @@ import {
 //발신 요청 미리보기 (썸넬 + 제목 + 상태) PrevWStatus
 //글 목록 미리보기 (썸넬 + 제목 + 가격+ 내용) PrevWContent
 
-
 function App() {
-  const path = window.location.pathname.slice(1);
   const {isLogin, userInfo} = useSelector((state) => {
     return {
       isLogin: state.isLogin,
       userInfo: state.userInfo
     };
   })
-  
+
   return (
     <Router>
-      { (path !== 'user/login' && path !== 'user/signup') && <Nav /> }
+      <Route 
+        render={() => {
+          const pathname = window.location.pathname;
+          console.log(pathname);
+          if (pathname !== '/user/login' && pathname !== '/user/signup') return <Nav />
+        }}
+      />
       <Switch>
         <Route path='/main' render={() => <Main />}>
         </Route> 
@@ -58,16 +63,22 @@ function App() {
         <Route path='/user/alter' render={() => <Alter userInfo={userInfo}/>}> 
           
         </Route> 
-        <Route path='/item/upload' render={() => <Upload />}> 
-          
-        </Route> 
+        <Route
+            path='/item/*'
+            render={() => {
+              const isNum = !/[^0-9]/.test(window.location.pathname.slice(6));
+              if (isNum) { // is a number
+                return <Item />
+              }
+              return <Upload />;
+            }}
+          />
         <Route path='/search*' render={() => <Search />}> 
           
         </Route> 
         <Route
             exact path='/'
             render={() => {
-              console.log(isLogin);
               if (isLogin) { // is logged in
                 return <Redirect to='/main' />;
               }

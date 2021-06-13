@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { userRequest, userRequested } from '../actions/index';
-import { Link, withRouter, Route, Redirect } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { Link, withRouter } from "react-router-dom";
 
 function MyPage(props) {
   
   console.log('MyPage state = ' , props.userInfo)
-  const dispatch = useDispatch();
-
   /*
   const onload = () => {
     dispatch(userRequest(props.accessToken));
@@ -19,7 +15,7 @@ function MyPage(props) {
   return (
     <div id="mypage-body">
       <div id="leftside">
-        <img></img>
+        <img alt=""></img>
         <div id="name">{props.userInfo.name}</div>
         <div id="nickname">{props.userInfo.nickname}</div>
         <div id="email">{props.userInfo.email}</div>
