@@ -11,6 +11,7 @@ const reducer = (state = initialState, action) => {
         {
         isLogin: action.payload.isLogin,
         userInfo: action.payload.userInfo,
+        accessToken: action.payload.accessToken,
       });
     
     case SIGNUP:

@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
+import axios from "axios";
 import { userLogin } from '../actions/index';
 import { Link, withRouter, Route } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 
 function Login(props) {
 
-
   const [ErrorMessage, setErrorMessage] = useState('');
   const dispatch = useDispatch();
-
   const [inputs, setInputs] = useState({
     UserId: '',
     Password: '',
@@ -25,16 +24,32 @@ function Login(props) {
     })
   }
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     const isTrue = UserId !== '' && Password !== '';
-
     if (!isTrue) {
       setErrorMessage('아이디와 비밀번호 모두 입력하세요');
     } else {
       setErrorMessage('');
-      dispatch(userLogin(UserId, Password))
-      console.log('로그인에 성공했습니다');
-      props.history.push('/')
+      axios.post('http://localhost:4000/user/login',
+        {
+          user_id: UserId,
+          password: Password
+        },
+        {
+          'Content-Type': 'application/json',
+          withCredentials: true,
+        })
+        .then((res) => {
+          console.log(res.data)
+          dispatch(userLogin(res.data))
+        })
+        .then(res => {
+          console.log('로그인에 성공했습니다');
+          props.history.push('/')
+        })
+        .catch((e) => {
+          console.log(e);
+        })
     }
   }
 
@@ -57,15 +72,15 @@ function Login(props) {
           로그인
         </button>
         <Route
-           render={() => {
+          render={() => {
             if (ErrorMessage !== '') {
-                return (
-                    <div className='alert-box'>
-                        {ErrorMessage}
-                    </div>
-                );
+              return (
+                <div className='alert-box'>
+                  {ErrorMessage}
+                </div>
+              );
             }
-        }}
+          }}
         />
       </center>
     </div>

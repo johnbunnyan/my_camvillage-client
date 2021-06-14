@@ -14,6 +14,12 @@ export const initialState =
     category: 'title',
     queryString: ''
   },
+
+  items: [],
+  requestLists: [],
+  requestedLists: [],
+
   itemCategory: ['주거용품', '가구용품', '취침용품', '주방용품', '악세사리', '기타용품', '방한용품'],
   domain: 'http://localhost:4000'
+
 }
