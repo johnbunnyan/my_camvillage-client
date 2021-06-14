@@ -8,13 +8,15 @@ function MyPage(props) {
   console.log('MyPage state = ' , props.userInfo)
   const dispatch = useDispatch();
 
-  /*
-  const onload = () => {
-    dispatch(userRequest(props.accessToken));
-    dispatch(userRequested(props.accessToken));
-  }
-  onload();
-  */
+  const [inputs, setInputs] = useState({
+    requestLists: [],
+    requestedLists: [],
+  })
+
+  setInputs({
+    requestLists: dispatch(userRequest(props.accessToken)),
+    requestedLists: dispatch(userRequested(props.accessToken))
+  })
 
   return (
     <div id="mypage-body">
@@ -27,10 +29,26 @@ function MyPage(props) {
       </div>
       <div id="rightside">
         <div id="post">
-
+        {inputs.requestLists.map((item, idx) => {
+            return (
+              <div className="request">
+                <div value={item.uesrId}></div>
+                <span value={item.confirmation}></span>
+                <Link to="/user/alter">회원정보 수정</Link>
+              </div>
+            )
+          }).slice(0,5)}
         </div>
-        <div id="messgae">
-
+        <div id="message">
+        {inputs.requestLists.map((item, idx) => {
+            return (
+              <div className="request">
+                <div value={item.uesrId}></div>
+                <span value={item.confirmation}></span>
+                <Link to="/user/alter">회원정보 수정</Link>
+              </div>
+            )
+          }).slice(0,5)}
         </div>
       </div>
     </div>

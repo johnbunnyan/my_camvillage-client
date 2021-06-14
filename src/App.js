@@ -33,13 +33,17 @@ function App() {
   const {isLogin, userInfo} = useSelector((state) => {
     return {
       isLogin: state.isLogin,
-      userInfo: state.userInfo
+      userInfo: state.userInfo,
     };
   })
+
+  console.log('app', path)
+  console.log('app state', isLogin)
   
   return (
     <Router>
-      { (path !== 'user/login' && path !== 'user/signup') && <Nav /> }
+      { //(path !== 'user/login' && path !== 'user/signup') && 
+      <Nav /> }
       <Switch>
         <Route path='/main' render={() => <Main />}>
         </Route> 
@@ -56,24 +60,25 @@ function App() {
           
         </Route> 
         <Route path='/user/alter' render={() => <Alter userInfo={userInfo}/>}> 
-          
-        </Route> 
-        <Route path='/item/upload' render={() => <Upload />}> 
-          
-        </Route> 
-        <Route path='/search*' render={() => <Search />}> 
-          
-        </Route> 
+
+        </Route>
+        <Route path='/item/upload' render={() => <Upload />}>
+
+        </Route>
+        <Route path='/search*' render={() => <Search />}>
+
+        </Route>
         <Route
-            exact path='/'
-            render={() => {
-              console.log(isLogin);
-              if (isLogin) { // is logged in
-                return <Redirect to='/main' />;
-              }
+          exact path='/'
+          render={() => {
+            console.log(isLogin);
+            if (isLogin) { // is logged in
+              return <Redirect to='/main' />;
+            } else {
               return <Redirect to='/user/login' />;
-            }}
-          />
+            }
+          }}
+        />
       </Switch>
       <Footer />
     </Router>

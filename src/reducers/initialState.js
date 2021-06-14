@@ -10,6 +10,6 @@ export const initialState =
     searchResults: []
   },
   items: [],
-  request: [],
-  requested: [],
+  requestLists: [],
+  requestedLists: [],
 }

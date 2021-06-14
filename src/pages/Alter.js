@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function Alter(props) {
 
+  console.log(props)
+
   console.log('Alter state = ', props.userInfo)
   
   const dispatch = useDispatch();
@@ -35,7 +37,6 @@ function Alter(props) {
   }
 
   const handleError = (name, value) => {
-    console.log(name, value)
     setErrorInputs({
       ...errorInputs,
       [name]: value,
