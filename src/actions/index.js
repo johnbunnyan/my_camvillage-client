@@ -67,7 +67,6 @@ export const userSignUp = (user_id, password, name, nickname, email) => {
   export const userAlter = (data) => {
 
     const {id, user_id, nickname, email} = data;
-
       return {
         type: ALTER,
         payload: {
