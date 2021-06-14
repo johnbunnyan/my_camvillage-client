@@ -2,17 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import { Link, withRouter, Route } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { setCategory, setQueryString } from '../actions';
 import PrevWTitle from '../components/PrevWTitle';
 import PrevWButton from '../components/PrevWButton';
 import PrevWStatus from '../components/PrevWStatus';
 
-function MyPage(props) {
-
-
-  console.log('MyPage state = ', props.userInfo)
+function MyPage() {
+  const state = useSelector(state => state);
+  console.log(state)
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -22,24 +21,28 @@ function MyPage(props) {
 
   function getSent() {
     axios
-      .get('http://localhost:4000/user/request',
-        {
+      .get('http://localhost:4000/user/request', {
+        headers: {
+          Authorization: `Bearer ${state.accessToken}`,
           'Content-Type': 'application/json',
-          'withCredentials': true,
-        })
-      .then(res => setSentRequests(res.data))
+        },
+        withCredentials: true,
+      })
+      .then(res => setSentRequests(res.data.request))
       .catch(e => console.log(e));
 
     console.log(sentRequests);
   }
 
   function getReceived() {
-    axios.get('http://localhost:4000/user/requested',
-      {
+    axios.get('http://localhost:4000/user/requested', {
+      headers: {
+        Authorization: `Bearer ${state.accessToken}`,
         'Content-Type': 'application/json',
-        'withCredentials': true,
-      })
-      .then(res => setReceivedRequests(res.data))
+      },
+      withCredentials: true,
+    })
+      .then(res => setReceivedRequests(res.data.request))
       .catch(e => console.log(e));
 
     console.log(receivedRequests);
@@ -50,7 +53,7 @@ function MyPage(props) {
       .post('http://localhost:4000/search',
         {
           category: 'nickname',
-          queryString: props.userInfo.nickname,
+          queryString: state.userInfo.nickname,
         })
       .then(res => setGetPosts(res.data))
       .catch(e => {
@@ -60,9 +63,9 @@ function MyPage(props) {
   }
 
   function handleClickPost() {
-    dispatch(setQueryString(props.userInfo.nickname));
+    dispatch(setQueryString(state.userInfo.nickname));
     dispatch(setCategory('nickname'));
-    history.push(`/search?q=${props.userInfo.nickname}&cat='nickname'`)
+    history.push(`/search?q=${state.userInfo.nickname}&cat=nickname`)
   }
 
   function handleClickMessage() {
@@ -79,10 +82,10 @@ function MyPage(props) {
   return (
     <div id="mypage-body">
       <div id="leftside">
-        <img id="img" src={props.userInfo.image}></img>
-        <div id="name">{props.userInfo.name}</div>
-        <div id="nickname">{props.userInfo.nickname}</div>
-        <div id="email">{props.userInfo.email}</div>
+        <img id="img" src={state.userInfo.image}></img>
+        <div id="name">{state.userInfo.name}</div>
+        <div id="nickname">{state.userInfo.nickname}</div>
+        <div id="email">{state.userInfo.email}</div>
         <Link to="/user/alter">회원정보 수정</Link>
       </div>
       <div id="rightside">

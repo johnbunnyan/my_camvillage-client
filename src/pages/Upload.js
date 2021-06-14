@@ -29,29 +29,69 @@ function Upload() {
     });
   }
 
+  // function handleSubmit(event) {
+  //   event.preventDefault();
+  //   console.log(inputs)
+  //   actionImgCompress(image);
+  //   // axios.post('http://localhost:4000/upload', inputs)
+  //   // .then(res => {
+  //   //   history.push(`item/${res.data.id}`)
+  //   // })
+  //   // .catch(e => console.log(e));
+  // }
+
+  // function actionImgCompress(fileSrc) {
+  //   console.log("압축 시작");
+
+  //   const options = {
+  //     maxSizeMB: 0.2,
+  //     maxWidthOrHeight: 1920,
+  //     useWebWorker: true,
+  //   };
+
+  //   imageCompression(fileSrc, options)
+  //   .then(res => {
+  //     setInputs({
+  //       ...inputs,
+  //       image: res,
+  //     });
+  //   })
+  //   .catch(e => console.log(e))
+  // };
+
   function handleSubmit(event) {
-    // event.preventDefault();
-    // console.log("압축 시작");
-
-    // const options = {
-    //   maxSizeMB: 0.2,
-    //   maxWidthOrHeight: 1920,
-    //   useWebWorker: true,
-    // };
-
-    // imageCompression(fileSrc, options)
-    // .then(res => {
-    //   setInputs({
-    //     ...inputs,
-    //     image: res,
-    //   });
-    // })
-    // .then(res => axios.post('http://localhost:4000/upload', inputs)
-    // // .then(res => {
-    // //   history.push(`item/${res.data.id}`)
-    // // })
-    // // .catch(e => console.log(e));)
-    // .catch(e => console.log(e))
+    event.preventDefault();
+    console.log("압축 시작");
+  
+    const options = {
+      maxSizeMB: 0.2,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+    console.log(image)
+    imageCompression(image, options)
+    .then(res => {
+      setInputs({
+        ...inputs,
+        image: res,
+      });
+      console.log(inputs)
+    })
+    .then(res => {
+      console.log(inputs)
+      axios
+      .post('http://localhost:4000/item/upload',
+      inputs,
+      {
+        'Content-Type': 'application/json',
+        'withCredentials': true,
+      })
+      .then(res => {
+        console.log(res.data)
+        history.push(`item/${res.data.id}`)
+      })
+    })
+    .catch(e => console.log(e));
   }
 
   function handleImage(event) {

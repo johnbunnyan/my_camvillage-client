@@ -18,11 +18,19 @@ const DOMAIN = "http://localhost:4000"
 // actions creator functions
 export const userLogin = (data) => {
   console.log(data)
+  const { user_id, name, nickname, email, user_image } = data
+  // {
+  //   user_id: '',
+  //   name: '',
+  //   nickname: '',
+  //   email: '',
+  //   user_image: ''
+  // }
   return {
     type: LOGIN,
     payload: {
         isLogin: true,
-        userInfo: data.data,
+        userInfo: { user_id, name, nickname, email, user_image },
         accessToken: data.accessToken,
     }
   }
@@ -67,7 +75,7 @@ export const userSignUp = (user_id, password, name, nickname, email) => {
     //  원활한 테스트를 위하여 서버와 연동하는 부분을 주석처리하고 더미데이트로 테스트 진행 중
       const data = 
       axios
-      .post(DOMAIN + '/user/alter',
+      .put(DOMAIN + '/user/alter',
       {
         user_id: user_id,
         password: password,
@@ -81,7 +89,9 @@ export const userSignUp = (user_id, password, name, nickname, email) => {
           WithCredentials: true,
         }
       })
-      .then((res) => res.data)
+      .then((res) => {
+        return res.data
+      })
       .catch((e) => {
         console.log(e)
       })

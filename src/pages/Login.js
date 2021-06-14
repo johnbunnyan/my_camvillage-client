@@ -3,9 +3,11 @@ import axios from "axios";
 import { userLogin } from '../actions/index';
 import { Link, withRouter, Route } from "react-router-dom";
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function Login(props) {
-
+  const state = useSelector(state => state);
+  console.log(state)
   const [ErrorMessage, setErrorMessage] = useState('');
   const dispatch = useDispatch();
   const [inputs, setInputs] = useState({

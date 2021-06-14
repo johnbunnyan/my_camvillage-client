@@ -47,7 +47,7 @@ function App() {
       <Switch>
         <Route path='/main' render={() => <Main />}>
         </Route> 
-        <Route path='/user/login' render={() => <Login />}>
+        <Route path='/user/login' render={() => <Login userInfo={userInfo}/>}>
         
         </Route> 
         <Route path='/user/signup' render={() => <Signup />}>
