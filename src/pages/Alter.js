@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
+import axios from "axios";
 import { userAlter } from '../actions/index';
 import { withRouter, Route } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Alter(props) {
 
-  console.log(props)
-
-  console.log('Alter state = ', props.userInfo)
+  const state = useSelector((state) => state)
+  console.log('Alter state = ', state)
   
   const dispatch = useDispatch();
 
   const [inputs, setInputs] = useState({
-    UserId: props.userInfo.user_id,
+    UserId: state.userInfo.user_id,
     Password: '',
     ConfirmPassword: '',
-    Name: props.userInfo.name,
-    NickName: props.userInfo.nickname,
-    Email: props.userInfo.email,
+    Name: state.userInfo.name,
+    NickName: state.userInfo.nickname,
+    Email: state.userInfo.email,
   })
   const { UserId, Password, ConfirmPassword, Name, NickName, Email } = inputs;
 
@@ -62,9 +62,33 @@ function Alter(props) {
       handleError('ErrorAll', '모든 항목을 입력하지 않았습니다.')
     } else {
       handleError('ErrorAll', '')
-      dispatch(userAlter(UserId, Password, NickName, Name, Email))
-      console.log('회원정보수정에 성공했습니다');
-      props.history.push('/user/mypage')
+      axios
+      .put('http://localhost:4000/user/alter',
+      {
+        user_id: UserId,
+        password: Password,
+        nickname: NickName,
+        email: Email,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${state.accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res.data)
+        dispatch(userAlter(res.data))
+      })
+      .then((res) => {
+        console.log('회원정보수정에 성공했습니다');
+        props.history.push('/user/mypage')
+      })
+      .catch((e) => {
+        console.log(e)
+      })
+   
     }
   }
 
@@ -76,7 +100,7 @@ function Alter(props) {
           <button>사진 추가/변경</button>
         </div>
       </div>
-      <div id='rightside'>
+      <div id='alter-rightside'>
         <div>
           <span>아이디:  </span>
           <input type='alterId' value={UserId} name="UserId" onChange={onChange}></input>
@@ -87,7 +111,7 @@ function Alter(props) {
         </div>
         <div>
           <span>이름:   </span>
-          <input type='alterName' value={Name} name="Name" onChange={onChange}></input>
+          <div type='alterName' value={Name} name="Name">{props.userInfo.name}</div>
         </div>
         <div>
           <span>이메일:   </span>
@@ -112,7 +136,7 @@ function Alter(props) {
             }
           }}
         />
-        <button className='btnlogin' type='submit' onClick={handleAlter}>
+        <button className='btnalter' type='submit' onClick={handleAlter}>
           수정하기
       </button>
         <Route

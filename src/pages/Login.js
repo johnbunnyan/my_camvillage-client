@@ -24,7 +24,7 @@ function Login(props) {
     })
   }
 
-  const handleLogin = async () => {
+  const handleLogin = () => {
     const isTrue = UserId !== '' && Password !== '';
     if (!isTrue) {
       setErrorMessage('아이디와 비밀번호 모두 입력하세요');
