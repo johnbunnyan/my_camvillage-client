@@ -10,10 +10,10 @@ function Nav() {
     <div id="nav-body">
       <span id="title">
         {logo}
-        <Link to="/main">CamVillage</Link>
+        <Link to="/">CamVillage</Link>
       </span>
       <SearchBar />
-      <Link to="/upload">글쓰기</Link>
+      <Link to="/item/upload">글쓰기</Link>
       <Dropdown />
     </div>
   );

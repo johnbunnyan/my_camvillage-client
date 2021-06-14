@@ -1,22 +1,13 @@
 import React, { useState } from 'react';
 import axios from "axios";
-
 import { userLogin } from '../actions/index';
-import { Link, withRouter, Route, Redirect } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { Link, withRouter, Route } from "react-router-dom";
+import { useDispatch } from 'react-redux';
 
 function Login(props) {
 
-
   const [ErrorMessage, setErrorMessage] = useState('');
   const dispatch = useDispatch();
-
-  const {isLogin} = useSelector((state) => {
-    return {isLogin: state.isLogin}
-  })
-
-  console.log('login state= ', isLogin)
-
   const [inputs, setInputs] = useState({
     UserId: '',
     Password: '',
@@ -35,13 +26,30 @@ function Login(props) {
 
   const handleLogin = async () => {
     const isTrue = UserId !== '' && Password !== '';
-
     if (!isTrue) {
       setErrorMessage('아이디와 비밀번호 모두 입력하세요');
     } else {
       setErrorMessage('');
-      await dispatch(userLogin(UserId, Password))
-      props.history.push('/')
+      axios.post('http://localhost:4000/user/login',
+        {
+          user_id: UserId,
+          password: Password
+        },
+        {
+          'Content-Type': 'application/json',
+          withCredentials: true,
+        })
+        .then((res) => {
+          console.log(res.data)
+          dispatch(userLogin(res.data))
+        })
+        .then(res => {
+          console.log('로그인에 성공했습니다');
+          props.history.push('/')
+        })
+        .catch((e) => {
+          console.log(e);
+        })
     }
   }
 

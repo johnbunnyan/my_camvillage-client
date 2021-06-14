@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { userAlter } from '../actions/index';
-import { Link, withRouter, Route } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { withRouter, Route } from "react-router-dom";
+import { useDispatch } from 'react-redux';
 
 function Alter(props) {
 
@@ -71,7 +71,7 @@ function Alter(props) {
   return (
     <div id='alter-body'>
       <div id='leftside'>
-        <img></img>
+        <img alt=""></img>
         <div>
           <button>사진 추가/변경</button>
         </div>

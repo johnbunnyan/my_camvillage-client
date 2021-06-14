@@ -2,6 +2,7 @@ import React from 'react';
 import Footer from './components/Footer';
 import Nav from './components/Nav';
 import Alter from './pages/Alter';
+import Item from './pages/Item';
 import Login from './pages/Login';
 import Main from './pages/Main';
 import MyPage from './pages/MyPage';
@@ -21,29 +22,28 @@ import {
   Redirect
 } from "react-router-dom";
 
-//컴포넌트화:
-//마이페이지 미리보기 (썸넬 + 제목)ThumbTitle
-//수신 요청 미리보기 (썸넬 + 버튼 or 썸넬 + 내 응답)ThumbTitleStatus/ThumbTitleButton
-//발신 요청 미리보기 (썸넬 + 제목 + 상태)ThumbTitleStatus
-//글 목록 미리보기 (썸넬 + 제목)ThumbTitle
-
+//미리보기 컴포넌트화:
+//마이페이지 내글 미리보기 (썸넬 + 제목) PrevWTitle
+//수신 요청 미리보기 (썸넬 + 제목 + 버튼 or 내 응답) PrevWButton
+//발신 요청 미리보기 (썸넬 + 제목 + 상태) PrevWStatus
+//글 목록 미리보기 (썸넬 + 제목 + 가격+ 내용) PrevWContent
 
 function App() {
-  const path = window.location.pathname.slice(1);
   const {isLogin, userInfo} = useSelector((state) => {
     return {
       isLogin: state.isLogin,
       userInfo: state.userInfo,
     };
   })
-
-  console.log('app', path)
-  console.log('app state', isLogin)
-  
   return (
     <Router>
-      { //(path !== 'user/login' && path !== 'user/signup') && 
-      <Nav /> }
+      <Route 
+        render={() => {
+          const pathname = window.location.pathname;
+          console.log(pathname);
+          if (pathname !== '/user/login' && pathname !== '/user/signup') return <Nav />
+        }}
+      />
       <Switch>
         <Route path='/main' render={() => <Main />}>
         </Route> 
@@ -59,25 +59,30 @@ function App() {
         <Route path='/user/request' render={() => <MyRequest />}> 
           
         </Route> 
-        <Route path='/user/alter' render={() => <Alter userInfo={userInfo}/>}> 
-
-        </Route>
-        <Route path='/item/upload' render={() => <Upload />}>
-
-        </Route>
-        <Route path='/search*' render={() => <Search />}>
-
-        </Route>
+        <Route path='/user/alter' render={() => <Alter userInfo={userInfo}/>}>         
+        </Route> 
         <Route
-          exact path='/'
-          render={() => {
-            console.log(isLogin);
-            if (isLogin) { // is logged in
-              return <Redirect to='/main' />;
-            } else {
+            path='/item/*'
+            render={() => {
+              const isNum = !/[^0-9]/.test(window.location.pathname.slice(6));
+              if (isNum) { // is a number
+                return <Item />
+              }
+              return <Upload />;
+            }}
+          />
+        <Route path='/search*' render={() => <Search />}> 
+          
+        </Route> 
+        <Route
+            exact path='/'
+            render={() => {
+              if (isLogin) { // is logged in
+                return <Redirect to='/main' />;
+              }
               return <Redirect to='/user/login' />;
             }
-          }}
+          }
         />
       </Switch>
       <Footer />
