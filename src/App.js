@@ -32,10 +32,9 @@ function App() {
   const {isLogin, userInfo} = useSelector((state) => {
     return {
       isLogin: state.isLogin,
-      userInfo: state.userInfo
+      userInfo: state.userInfo,
     };
   })
-
   return (
     <Router>
       <Route 
@@ -60,8 +59,7 @@ function App() {
         <Route path='/user/request' render={() => <MyRequest />}> 
           
         </Route> 
-        <Route path='/user/alter' render={() => <Alter userInfo={userInfo}/>}> 
-          
+        <Route path='/user/alter' render={() => <Alter userInfo={userInfo}/>}>         
         </Route> 
         <Route
             path='/item/*'
@@ -83,8 +81,9 @@ function App() {
                 return <Redirect to='/main' />;
               }
               return <Redirect to='/user/login' />;
-            }}
-          />
+            }
+          }
+        />
       </Switch>
       <Footer />
     </Router>
