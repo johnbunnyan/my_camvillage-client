@@ -100,9 +100,9 @@ function MyPage() {
     <div id="mypage-body">
       <div id="mypage-leftside">
         <img id="img" src={state.userInfo.image}></img>
-        <div id="name">{state.userInfo.name}</div>
-        <div id="nickname">{state.userInfo.nickname}</div>
-        <div id="email">{state.userInfo.email}</div>
+        <div id="name">이름 = {state.userInfo.name}</div>
+        <div id="nickname">닉네임 = {state.userInfo.nickname}</div>
+        <div id="email">이메일 = {state.userInfo.email}</div>
         <Link to="/user/alter">회원정보 수정</Link>
       </div>
       <div id="mypage-rightside">
