@@ -46,8 +46,8 @@ function MyRequest() {
 
   return (
     <div id="myrequest-body">
-      <div id="received-request">
-        <div id="received-request-title">내가 받은 요청</div>
+      <div id="myrequest-received-request">
+        <div id="myrequest-received-request-title">내가 받은 요청</div>
           {
             receivedRequests.map(({ image, title, id, confirmation }) => 
             <PrevWButton 
@@ -58,17 +58,17 @@ function MyRequest() {
             />)
           }
       </div>
-      <div id="sent-request">
-        <div id="sent-request-title">내가 보낸 요청</div>
-        {
-          sentRequests.map(({ image, title, id, confirmation }) => 
-          <PrevWStatus 
-            image={image}
-            title={title}
-            id={id}
-            confirmation={confirmation}
-          />)
-        }
+      <div id="myrequest-sent-request">
+        <div id="myrequest-sent-request-title">내가 보낸 요청</div>
+          {
+            sentRequests.map(({ image, title, id, confirmation }) => 
+            <PrevWStatus 
+              image={image}
+              title={title}
+              id={id}
+              confirmation={confirmation}
+            />)
+          }
       </div>
     </div>
   );

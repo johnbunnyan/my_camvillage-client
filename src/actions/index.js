@@ -18,19 +18,12 @@ const DOMAIN = "http://localhost:4000"
 // actions creator functions
 export const userLogin = (data) => {
   console.log(data)
-  const { user_id, name, nickname, email, user_image } = data
-  // {
-  //   user_id: '',
-  //   name: '',
-  //   nickname: '',
-  //   email: '',
-  //   user_image: ''
-  // }
+  const {id, user_id, name, nickname, email} = data;
   return {
     type: LOGIN,
     payload: {
         isLogin: true,
-        userInfo: { user_id, name, nickname, email, user_image },
+        userInfo: {id, user_id, name, nickname, email},
         accessToken: data.accessToken,
     }
   }
@@ -71,33 +64,9 @@ export const userSignUp = (user_id, password, name, nickname, email) => {
   }
 }
 
-  export const userAlter = (user_id, password, name, nickname, email) => {
-    //  원활한 테스트를 위하여 서버와 연동하는 부분을 주석처리하고 더미데이트로 테스트 진행 중
-      const data = 
-      axios
-      .put(DOMAIN + '/user/alter',
-      {
-        user_id: user_id,
-        password: password,
-        name: name,
-        nickname: nickname,
-        email: email,
-      },
-      {
-        headers:{
-          'Content-Type': 'application/json',
-          WithCredentials: true,
-        }
-      })
-      .then((res) => {
-        return res.data
-      })
-      .catch((e) => {
-        console.log(e)
-      })
-    
-      // const data = {user_id: user_id, password: password, 
-      //   name: name, nickname: nickname, email: email}
+  export const userAlter = (data) => {
+
+    const {id, user_id, nickname, email} = data;
       return {
         type: ALTER,
         payload: {

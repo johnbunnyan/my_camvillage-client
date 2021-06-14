@@ -6,12 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { setCategory, setQueryString } from '../actions';
 import PrevWTitle from '../components/PrevWTitle';
-import PrevWButton from '../components/PrevWButton';
+import YesNoButton from '../components/YesNoButton';
 import PrevWStatus from '../components/PrevWStatus';
 
 function MyPage() {
-  const state = useSelector(state => state);
-  console.log(state)
+
+  const state = useSelector((state) => state);
+  console.log('MyPage state = ', state)
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -21,31 +22,42 @@ function MyPage() {
 
   function getSent() {
     axios
-      .get('http://localhost:4000/user/request', {
-        headers: {
-          Authorization: `Bearer ${state.accessToken}`,
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
+      .get('http://localhost:4000/user/request',
+        {
+          headers: {
+            Authorization: `Bearer ${state.accessToken}`,
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        })
+      .then(res => {
+        setSentRequests(res.data.request)
       })
-      .then(res => setSentRequests(res.data.request))
+      .then(res => {
+        console.log('sentRequests = ', sentRequests);
+      })
       .catch(e => console.log(e));
-
-    console.log(sentRequests);
   }
 
   function getReceived() {
-    axios.get('http://localhost:4000/user/requested', {
-      headers: {
-        Authorization: `Bearer ${state.accessToken}`,
-        'Content-Type': 'application/json',
-      },
-      withCredentials: true,
-    })
-      .then(res => setReceivedRequests(res.data.request))
+    axios
+      .get('http://localhost:4000/user/requested',
+        {
+          headers: {
+            Authorization: `Bearer ${state.accessToken}`,
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        })
+      .then(res => {
+        setReceivedRequests(res.data.request)
+      })
+      .then(res => {
+        console.log('receivedRequests = ', receivedRequests);
+      })
       .catch(e => console.log(e));
 
-    console.log(receivedRequests);
+    
   }
 
   function getPost() {
@@ -55,7 +67,12 @@ function MyPage() {
           category: 'nickname',
           queryString: state.userInfo.nickname,
         })
-      .then(res => setGetPosts(res.data))
+      .then(res => {
+        setGetPosts(res.data)
+      })
+      .then(res => {
+        console.log('getPosts = ', getPosts)
+      })
       .catch(e => {
         console.log(e);
       })
@@ -81,43 +98,44 @@ function MyPage() {
 
   return (
     <div id="mypage-body">
-      <div id="leftside">
+      <div id="mypage-leftside">
         <img id="img" src={state.userInfo.image}></img>
         <div id="name">{state.userInfo.name}</div>
         <div id="nickname">{state.userInfo.nickname}</div>
         <div id="email">{state.userInfo.email}</div>
         <Link to="/user/alter">회원정보 수정</Link>
       </div>
-      <div id="rightside">
-        <div id="post">
-          {getPosts.map(({ image, title, id }) => {
+      <div id="mypage-rightside">
+        <div id="mypage-post"> 내가 올린 글
+          {getPosts.map(({ image, title, id }, index) => {
             return (
               <div className="post-one">
                 <PrevWTitle
                   image={image}
                   title={title}
                   id={id}
+                  key={index}
                 />
               </div>
             )
           }).slice(0, 5)}
           <button onClick={handleClickPost}>더보기 </button>
         </div>
-        <div id="message">
-          <div id="received-request">
-            <div id="received-request-title">내가 받은 요청</div>
+        <div id="mypage-message">
+          <div id="mypage-received-request">
+            <div id="mypage-received-request-title">내가 받은 요청</div>
             {
               receivedRequests.map(({ image, title, id, confirmation }) =>
-                <PrevWButton
+                <YesNoButton
                   image={image}
                   title={title}
                   id={id}
                   confirmation={confirmation}
                 />).slice(0,5)
-            }
+            } 
           </div>
-          <div id="sent-request">
-            <div id="sent-request-title">내가 보낸 요청</div>
+          <div id="mypage-sent-request">
+            <div id="mypage-sent-request-title">내가 보낸 요청</div>
             {
               sentRequests.map(({ image, title, id, confirmation }) =>
                 <PrevWStatus
@@ -126,7 +144,7 @@ function MyPage() {
                   id={id}
                   confirmation={confirmation}
                 />).slice(0,5)
-            }
+            } 
           </div>
           <button onClick={handleClickMessage}>더보기 </button>
         </div>

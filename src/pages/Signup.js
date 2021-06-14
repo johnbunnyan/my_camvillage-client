@@ -193,7 +193,7 @@ function Signup(props) {
       />
         <Link to='/user/login'>기존회원이신가요 ?</Link>
       </div>
-      <button className='btnlogin' type='submit' onClick={handleSignUp}>
+      <button className='btnsignup' type='submit' onClick={handleSignUp}>
         회원가입
       </button>
       <Route
