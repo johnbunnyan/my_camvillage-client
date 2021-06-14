@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
+import imageCompression from "browser-image-compression";
 
 function Upload() {
   const history = useHistory();
@@ -16,7 +17,7 @@ function Upload() {
     image: ''
   });
 
-  const { hashtag } = inputs;
+  const { hashtag, image } = inputs;
   const itemCategory = useSelector(state => state.itemCategory);
 
   const handleChange = (e) => {
@@ -29,18 +30,37 @@ function Upload() {
   }
 
   function handleSubmit(event) {
-    event.preventDefault();
-    console.log(inputs)
-    // axios.post('http://localhost:4000/upload', inputs)
+    // event.preventDefault();
+    // console.log("압축 시작");
+
+    // const options = {
+    //   maxSizeMB: 0.2,
+    //   maxWidthOrHeight: 1920,
+    //   useWebWorker: true,
+    // };
+
+    // imageCompression(fileSrc, options)
     // .then(res => {
-    //   history.push(`item/${res.data.id}`)
+    //   setInputs({
+    //     ...inputs,
+    //     image: res,
+    //   });
     // })
-    // .catch(e => console.log(e));
+    // .then(res => axios.post('http://localhost:4000/upload', inputs)
+    // // .then(res => {
+    // //   history.push(`item/${res.data.id}`)
+    // // })
+    // // .catch(e => console.log(e));)
+    // .catch(e => console.log(e))
   }
 
   function handleImage(event) {
-    console.log(event.target.files)
-  }
+    const imageFile = event.target.files[0];
+    setInputs({
+      ...inputs,
+      image: imageFile,
+    });
+  };
 
   function removeTag(i) {
     const newHashtag = [...hashtag];
