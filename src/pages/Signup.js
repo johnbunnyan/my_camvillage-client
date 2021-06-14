@@ -37,7 +37,6 @@ function Signup(props) {
   }
 
   const handleError = (name, value) => {
-    console.log(name, value)
     setErrorInputs({
       ...errorInputs,
       [name]: value,
@@ -85,10 +84,10 @@ function Signup(props) {
 
   useEffect(() => {
     const checkEmail = checkEm.exec(Email);  
-    if (!checkEmail) {
-      handleError('ErrorEmail', '이메일 형식에 맞지 않습니다.')
-    } else {
+    if (checkEmail) {
       handleError('ErrorEmail', '')
+    } else {   
+      handleError('ErrorEmail', '이메일 형식에 맞지 않습니다.')
     }
   }, [Email])
 
@@ -178,7 +177,7 @@ function Signup(props) {
       />
       <div>
         <span>이메일:   </span>
-        <input type='signupEmail' name="Email" onChange={onchange}></input>
+        <input type='signupEmail' name="Email" onChange={onChange}></input>
       </div>
       <div>
       <Route
