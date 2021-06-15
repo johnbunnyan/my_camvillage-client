@@ -117,7 +117,7 @@ function Login(props) {
           }}
         />
         <GoogleLogin
-          clientId={"자신 구글 아이디 수정 요망"}
+          clientId={"FILL_ME_IN"}
           buttonText="Login"
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
