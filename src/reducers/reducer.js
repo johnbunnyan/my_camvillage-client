@@ -12,6 +12,7 @@ const reducer = (state = initialState, action) => {
         isLogin: action.payload.isLogin,
         userInfo: action.payload.userInfo,
         accessToken: action.payload.accessToken,
+        isGoogle: action.payload.isGoogle,
       });
     
     case SIGNUP:

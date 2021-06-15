@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from "axios";
 import { userSignUp } from '../actions/index';
 import { Link, withRouter, Route } from "react-router-dom";
 import { useDispatch } from 'react-redux';
@@ -70,11 +71,11 @@ function Signup(props) {
       handleError('ErrorNickName', '닉네임에 허용되지 않은 특수문자가 입력되었습니다.')
     } else {
       handleError('ErrorNickName', '')
-    }  
+    }
   }, [NickName])
 
   useEffect(() => {
-    const checkName = checkWord.exec(Name); 
+    const checkName = checkWord.exec(Name);
     if (checkName) {
       handleError('ErrorName', '이름란에 허용되지 않은 특수문자가 입력되었습니다.')
     } else {
@@ -83,11 +84,13 @@ function Signup(props) {
   }, [Name])
 
   useEffect(() => {
-    const checkEmail = checkEm.exec(Email);  
-    if (checkEmail) {
-      handleError('ErrorEmail', '')
-    } else {   
-      handleError('ErrorEmail', '이메일 형식에 맞지 않습니다.')
+    if (Email) {
+      const checkEmail = checkEm.exec(Email);
+      if (checkEmail) {
+        handleError('ErrorEmail', '')
+      } else {
+        handleError('ErrorEmail', '이메일 형식에 맞지 않습니다.')
+      }
     }
   }, [Email])
 
@@ -95,15 +98,39 @@ function Signup(props) {
     console.log('userId', UserId, 'password', Password)
 
     const isTrue = UserId !== '' && Password !== '' &&
-                  NickName !== '' && Name !== '' && Email !== '';
+      NickName !== '' && Name !== '' && Email !== '';
 
     if (!isTrue) {
       handleError('ErrorAll', '모든 항목을 입력하지 않았습니다.')
     } else {
       handleError('ErrorAll', '')
-      dispatch(userSignUp(UserId, Password, NickName, Name, Email))
-      console.log('회원가입에 성공했습니다');
-      props.history.push('/')
+
+      axios
+        .post('http://localhost:4000/user/signup',
+          {
+            user_id: UserId,
+            password: Password,
+            name: Name,
+            nickname: NickName,
+            email: Email, //user image default image
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              WithCredentials: true,
+            }
+          })
+        .then((res) => {
+          console.log(res.data)
+          dispatch(userSignUp(res.data))
+        })
+        .then((res) => {
+          console.log('회원가입에 성공했습니다');
+          props.history.push('/')
+        })
+        .catch((e) => {
+          console.log(e)
+        })
     }
   }
 
