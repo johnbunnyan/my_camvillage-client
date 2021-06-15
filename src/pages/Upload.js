@@ -6,18 +6,18 @@ import imageCompression from "browser-image-compression";
 
 function Upload() {
   const history = useHistory();
-
+  const [rawImage, setRawImage] = useState({});
   const [inputs, setInputs] = useState({
     title: '',
     hashtag: [],
     category: '',
     brand: '',
     price: 0,
-    description: '',
-    image: ''
+    description: ''
   });
 
-  const { hashtag, image } = inputs;
+  const { hashtag } = inputs;
+  const accessToken = useSelector(state => state.accessToken);
   const itemCategory = useSelector(state => state.itemCategory);
 
   const handleChange = (e) => {
@@ -29,36 +29,6 @@ function Upload() {
     });
   }
 
-  // function handleSubmit(event) {
-  //   event.preventDefault();
-  //   console.log(inputs)
-  //   actionImgCompress(image);
-  //   // axios.post('http://localhost:4000/upload', inputs)
-  //   // .then(res => {
-  //   //   history.push(`item/${res.data.id}`)
-  //   // })
-  //   // .catch(e => console.log(e));
-  // }
-
-  // function actionImgCompress(fileSrc) {
-  //   console.log("압축 시작");
-
-  //   const options = {
-  //     maxSizeMB: 0.2,
-  //     maxWidthOrHeight: 1920,
-  //     useWebWorker: true,
-  //   };
-
-  //   imageCompression(fileSrc, options)
-  //   .then(res => {
-  //     setInputs({
-  //       ...inputs,
-  //       image: res,
-  //     });
-  //   })
-  //   .catch(e => console.log(e))
-  // };
-
   function handleSubmit(event) {
     event.preventDefault();
     console.log("압축 시작");
@@ -68,38 +38,52 @@ function Upload() {
       maxWidthOrHeight: 1920,
       useWebWorker: true,
     };
-    console.log(image)
-    imageCompression(image, options)
+    
+    imageCompression(rawImage, options)
     .then(res => {
-      setInputs({
-        ...inputs,
-        image: res,
-      });
-      console.log(inputs)
-    })
-    .then(res => {
-      console.log(inputs)
-      axios
-      .post('http://localhost:4000/item/upload',
-      inputs,
-      {
-        'Content-Type': 'application/json',
-        'withCredentials': true,
-      })
-      .then(res => {
-        console.log(res.data)
-        history.push(`item/${res.data.id}`)
-      })
+      const reader = new FileReader();
+      reader.readAsDataURL(res);
+      reader.onloadend = () => {
+        const base64data = reader.result;
+        axios
+        .post('http://localhost:4000/item/upload',
+        handleDataForm(base64data),
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'multipart/form-data',
+          },
+          withCredentials: true,
+        })
+        // .then(res => {
+        //   history.push(`item/${res.data.id}`)
+        // })
+      }
     })
     .catch(e => console.log(e));
   }
 
+  const handleDataForm = dataURI => {
+    const byteString = atob(dataURI.split(",")[1]);
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([ia], { type: "image/jpeg" });
+    const file = new File([blob], "image.jpg");
+  
+    const formData = new FormData();
+    formData.append("image", file);
+    for (const prop in inputs) {
+      formData.append(prop, inputs[prop]);
+    }
+    return formData;
+  };
+
   function handleImage(event) {
     const imageFile = event.target.files[0];
-    setInputs({
-      ...inputs,
-      image: imageFile,
-    });
+    setRawImage(imageFile);
   };
 
   function removeTag(i) {
@@ -172,5 +156,4 @@ function Upload() {
     </form>
   );
 }
-
 export default Upload;

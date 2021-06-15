@@ -174,3 +174,60 @@ export const setQueryString = (queryString) => {
     }
   }
 }
+
+// const onSubmit = async () => {
+//   actionImgCompress(data.avatar[0].file);
+// };
+
+// export const compressImg = async () => (dispatch, fileSrc) => {
+//   console.log("압축 시작");
+
+//   const options = {
+//     maxSizeMB: 0.2,
+//     maxWidthOrHeight: 1920,
+//     useWebWorker: true,
+//   };
+
+//   imageCompression(fileSrc, options)
+//   .then(res => {
+//     const reader = new FileReader();
+//     reader.readAsDataURL(res);
+//     reader.onloadend = () => {
+//       const base64data = reader.result;
+//       handlingDataForm(base64data);
+//     }
+//   })
+//   .catch(e => console.log(e))
+// };
+
+// const handlingDataForm = async dataURI => {
+//   // dataURL 값이 data:image/jpeg:base64,~~~~~~~ 이므로 ','를 기점으로 잘라서 ~~~~~인 부분만 다시 인코딩
+//   const byteString = atob(dataURI.split(",")[1]);
+
+//   // Blob를 구성하기 위한 준비, 이 내용은 저도 잘 이해가 안가서 기술하지 않았습니다.
+//   const ab = new ArrayBuffer(byteString.length);
+//   const ia = new Uint8Array(ab);
+//   for (let i = 0; i < byteString.length; i++) {
+//     ia[i] = byteString.charCodeAt(i);
+//   }
+//   const blob = new Blob([ia], {
+//     type: "image/jpeg"
+//   });
+//   const file = new File([blob], "image.jpg");
+
+//   // 위 과정을 통해 만든 image폼을 FormData에 넣어줍니다.
+//   // 서버에서는 이미지를 받을 때, FormData가 아니면 받지 않도록 세팅해야합니다.
+//   const formData = new FormData();
+//   formData.append("representative_avatar", file);
+
+//   // 필요시 더 추가합니다.
+//   formData.append("name", "nkh");
+//   formData.append("email", "noh5524@gmail.com");
+
+//   try {
+//     const changeAvatar = await apis.auth.changeUserAccount(formData);
+//     alert(changeAvatar.status);
+//   } catch (error) {
+//     alert(error.response.data.errors);
+//   }
+// };

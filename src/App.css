@@ -3,6 +3,14 @@
     padding: 0;
     font-family: "Helvetica Neue", sans-serif;
     box-sizing: border-box;
+    font-size: 16px;
+}
+
+button {
+    border: none;
+    padding: 5px 10px;
+    color: inherit;
+    background-color:inherit;
 }
 
 html, body {
@@ -17,21 +25,37 @@ html, body {
 }
 
 #nav-body {
+    background-color: black;
+    padding: 0px 20px;
+    height: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border: solid black 1px;
+    flex-grow: 0;
 }
 
 #nav-body > * {
     display: inline-block;
     vertical-align: center;
+    color: rgb(255, 255, 151);
 }
+
+a {
+    text-decoration-line:inherit;
+}
+
+a:link{color:inherit}
+a:active{color:inherit}
+a:visited{color:inherit}
+a:hover{color:inherit}
 
 .dropbtn {
     padding: 16px 35px;
     font-size: 16px;
     border: none;
+
+    border: solid black 1px;
 }
 
 .dropdown {
@@ -39,11 +63,16 @@ html, body {
     display: inline-block;
 }
 
+.dropdown * {
+    width: 150px;
+}
+
 .dropdown-content {
     display: none;
     position: absolute;
-    min-width: 160px;
     z-index: 1;
+    border: solid black 1px;
+    background-color: rgba(128, 128, 128, 0.3);
 }
 
 .dropdown-content * {
@@ -60,6 +89,9 @@ html, body {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    background-color:rgb(20, 20, 20);
+    flex-grow: 1;
+    color: rgb(255, 255, 151);
 }
 
 #main-body button {
@@ -73,9 +105,48 @@ html, body {
 }
 
 #footer-body {
+    height: 60px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px;
     border: solid black 1px;
+    flex-grow: 0;
+    color: rgba(255, 255, 151, 0.6);
+    background-color:black;
+}
+
+#login-body {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#login-body center * {
+    margin: 6px 0px;
+}
+
+#signup-body {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#signup-body center * {
+    margin: 6px 0px;
+}
+
+#mypage-body {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#mypage-body center * {
+    margin: 6px 0px;
 }
 
 #myrequest-body {
@@ -127,4 +198,12 @@ html, body {
 
 .upload-form-hashtag > ul * {
     display: flex;
+}
+
+.search-bar * {
+    margin: 5px;
+    padding: 5px 10px;
+    background-color: rgb(20, 20, 20);
+    color: rgb(255, 255, 151);
+    border:rgba(255, 255, 151, 0.3) solid 1px
 }

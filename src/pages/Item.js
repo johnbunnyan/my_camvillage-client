@@ -61,7 +61,7 @@ function Item() {
             if (hashtag) {
                 return (
                   <div id="item-hashtag"> 해시태그: 
-                    {hashtag.map(tag => <span>#{tag}</span>)}
+                    {hashtag.map(tag => <span>#{tag.name}</span>)}
                   </div>
                 );
             } else {

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { setCategory, setQueryString } from '../actions';
 import PrevWTitle from '../components/PrevWTitle';
-import YesNoButton from '../components/YesNoButton';
+import PrevWButton from '../components/PrevWButton';
 import PrevWStatus from '../components/PrevWStatus';
 
 function MyPage() {
@@ -126,7 +126,7 @@ function MyPage() {
             <div id="mypage-received-request-title">내가 받은 요청</div>
             {
               receivedRequests.map(({ image, title, id, confirmation }) =>
-                <YesNoButton
+                <PrevWButton
                   image={image}
                   title={title}
                   id={id}

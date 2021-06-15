@@ -11,6 +11,7 @@ function Search() {
   const { nickname } = useSelector(state => state.userInfo);
 
   useEffect(() => {
+    console.log(category, queryString)
     axios
     .post('http://localhost:4000/search',
       {
@@ -36,7 +37,7 @@ function Search() {
       // #감성캠핑
       setSearchMessage(`#${queryString} (${searchResults.length})`);
     }
-  }, [])
+  }, [category, queryString])
   
   return (
     <div id="search-body">
