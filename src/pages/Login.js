@@ -4,10 +4,14 @@ import { userLogin } from '../actions/index';
 import { Link, withRouter, Route } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import {GoogleLogin, GoogleLogout} from 'react-google-login';
+import { useSelector } from 'react-redux';
+
 require("dotenv").config();
 
-function Login(props) {
 
+function Login(props) {
+  const state = useSelector(state => state);
+  console.log(state)
   const [ErrorMessage, setErrorMessage] = useState('');
   const dispatch = useDispatch();
   const [inputs, setInputs] = useState({

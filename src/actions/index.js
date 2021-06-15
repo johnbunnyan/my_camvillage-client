@@ -43,6 +43,7 @@ export const userSignUp = (data) => {
   }
 }
 
+
 export const userAlter = (data) => {
 
   const { id, user_id, nickname, email } = data;

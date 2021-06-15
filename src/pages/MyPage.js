@@ -82,7 +82,7 @@ function MyPage() {
   function handleClickPost() {
     dispatch(setQueryString(state.userInfo.nickname));
     dispatch(setCategory('nickname'));
-    history.push(`/search?q=${state.userInfo.nickname}&cat='nickname'`)
+    history.push(`/search?q=${state.userInfo.nickname}&cat=nickname`)
   }
 
   function handleClickMessage() {
