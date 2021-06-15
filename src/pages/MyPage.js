@@ -103,14 +103,20 @@ function MyPage() {
         <div id="name">이름 = {state.userInfo.name}</div>
         <div id="nickname">닉네임 = {state.userInfo.nickname}</div>
         <div id="email">이메일 = {state.userInfo.email}</div>
-        <Link to="/user/alter">회원정보 수정</Link>
+        <Route
+          render={() => {
+            if (!state.isGoogle) {
+              return <Link to="/user/alter">회원정보 수정</Link>
+            }
+          }}
+        />
       </div>
       <div id="mypage-rightside">
         <div id="mypage-post"> 내가 올린 글
           {getPosts.map(({ image, title, id }, index) => {
-            return (
-              <div className="post-one">
-                <PrevWTitle
+          return (
+            <div className="post-one">
+              <PrevWTitle
                   image={image}
                   title={title}
                   id={id}

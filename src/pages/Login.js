@@ -3,6 +3,8 @@ import axios from "axios";
 import { userLogin } from '../actions/index';
 import { Link, withRouter, Route } from "react-router-dom";
 import { useDispatch } from 'react-redux';
+import {GoogleLogin, GoogleLogout} from 'react-google-login';
+require("dotenv").config();
 
 function Login(props) {
 
@@ -30,15 +32,16 @@ function Login(props) {
       setErrorMessage('아이디와 비밀번호 모두 입력하세요');
     } else {
       setErrorMessage('');
-      axios.post('http://localhost:4000/user/login',
-        {
-          user_id: UserId,
-          password: Password
-        },
-        {
-          'Content-Type': 'application/json',
-          withCredentials: true,
-        })
+      axios
+        .post('http://localhost:4000/user/login',
+          {
+            user_id: UserId,
+            password: Password
+          },
+          {
+            'Content-Type': 'application/json',
+            withCredentials: true,
+          })
         .then((res) => {
           console.log(res.data)
           dispatch(userLogin(res.data))
@@ -51,6 +54,37 @@ function Login(props) {
           console.log(e);
         })
     }
+  }
+
+  const responseGoogle = (response) => {
+    console.log(response.accessToken);
+    console.log(response.Ft.Ue);
+    axios
+    .post('http://localhost:4000/user/login/google',
+    {
+      user_id: response.Ft.Ue,
+      nickname: response.Ft.Ue,
+      email: response.Ft.pu,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${response.accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
+    })
+    .then(res => {
+      console.log(res.data)
+      dispatch(userLogin(res.data))
+    })
+    .then(res =>{
+      console.log('소셜 로그인에 성공했습니다.');
+      props.history.push('/')
+    })
+  }
+
+  const logout = () => {
+    console.log('logout')
   }
 
   return (
@@ -81,6 +115,13 @@ function Login(props) {
               );
             }
           }}
+        />
+        <GoogleLogin
+          clientId={"자신 구글 아이디 수정 요망"}
+          buttonText="Login"
+          onSuccess={responseGoogle}
+          onFailure={responseGoogle}
+          cookiePolicy={'single_host_origin'}
         />
       </center>
     </div>
