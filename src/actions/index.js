@@ -80,7 +80,7 @@ export const userLogout = () => {
     type: LOGOUT,
     payload: {
       isLogin: false,
-      userInfo: null,
+      userInfo: '',
       notifications: 0
     }
   }

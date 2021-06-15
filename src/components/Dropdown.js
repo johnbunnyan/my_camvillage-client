@@ -5,15 +5,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import { userLogout } from '../actions/index';
 
 function Dropdown() {
-  const notifications = useSelector(state => state.notifications);
+  const state = useSelector(state => state);
   const dispatch = useDispatch();
   const history = useHistory();
 
   function handleLogout() {
+
+    console.log(state.accessToken)
     axios.post('http://localhost:4000/user/logout',
     {
-      'Content-Type': 'application/json',
-      'withCredentials': true,
+      headers: {
+        Authorization: `Bearer ${state.accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true,
     })
     .then(res => {
       dispatch(userLogout());
@@ -26,10 +31,10 @@ function Dropdown() {
 
   return (
     <div className="dropdown">
-      <button className="drop-btn">메뉴 ({notifications})</button>
+      <button className="drop-btn">메뉴 ({state.notifications})</button>
       <div className="dropdown-content">
-        <Link to="/user/mypage">마이페이지 ({notifications})</Link>
-        <div id="logout-btn" onClick={handleLogout}>로그아웃</div>
+        <Link to="/user/mypage">마이페이지 ({state.notifications})</Link>
+        <button id="logout-btn" onClick={handleLogout}>로그아웃</button>
       </div>
     </div>
   );
