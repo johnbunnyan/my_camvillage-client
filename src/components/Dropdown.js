@@ -10,12 +10,12 @@ function Dropdown() {
   const history = useHistory();
 
   function handleLogout() {
-
-    console.log(state.accessToken)
-    axios.post('http://localhost:4000/user/logout',
+    console.log('state')
+    console.log(state)
+    axios.post('http://localhost:4000/user/logout', {},
     {
       headers: {
-        Authorization: `Bearer ${state.accessToken}`,
+        'Authorization': `Bearer ${state.accessToken}`,
         'Content-Type': 'application/json',
       },
       withCredentials: true,
@@ -31,9 +31,9 @@ function Dropdown() {
 
   return (
     <div className="dropdown">
-      <button className="drop-btn">메뉴 ({state.notifications})</button>
+      <button className="drop-btn">메뉴</button>
       <div className="dropdown-content">
-        <Link to="/user/mypage">마이페이지 ({state.notifications})</Link>
+        <Link to="/user/mypage">마이페이지</Link>
         <button id="logout-btn" onClick={handleLogout}>로그아웃</button>
       </div>
     </div>

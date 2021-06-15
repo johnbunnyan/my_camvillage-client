@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { setCategory, setQueryString } from '../actions';
 import PrevWTitle from '../components/PrevWTitle';
-import YesNoButton from '../components/YesNoButton';
+import PrevWButton from '../components/PrevWButton';
 import PrevWStatus from '../components/PrevWStatus';
 
 function MyPage() {
@@ -25,7 +25,7 @@ function MyPage() {
       .get('http://localhost:4000/user/request',
         {
           headers: {
-            Authorization: `Bearer ${state.accessToken}`,
+            'Authorization': `Bearer ${state.accessToken}`,
             'Content-Type': 'application/json',
           },
           withCredentials: true,
@@ -44,7 +44,7 @@ function MyPage() {
       .get('http://localhost:4000/user/requested',
         {
           headers: {
-            Authorization: `Bearer ${state.accessToken}`,
+            'Authorization': `Bearer ${state.accessToken}`,
             'Content-Type': 'application/json',
           },
           withCredentials: true,
@@ -98,61 +98,79 @@ function MyPage() {
 
   return (
     <div id="mypage-body">
-      <div id="mypage-leftside">
-        <img id="img" src={state.userInfo.image}></img>
-        <div id="name">이름 = {state.userInfo.name}</div>
-        <div id="nickname">닉네임 = {state.userInfo.nickname}</div>
-        <div id="email">이메일 = {state.userInfo.email}</div>
-        <Route
-          render={() => {
-            if (!state.isGoogle) {
-              return <Link to="/user/alter">회원정보 수정</Link>
-            }
-          }}
-        />
+      <div id="mypage-top">
+        <div id="mypage-img">
+          <img src={state.userInfo.image} alt="mypage-img"></img>
+        </div>
+        <div id="mypage-info">
+          <div>
+            <div className="mypage-info-label">이름:</div>
+            <div className="mypage-info-input">{state.userInfo.name}</div>
+          </div>
+          <div>
+            <div className="mypage-info-label">아이디:</div>
+            <div className="mypage-info-input">{state.userInfo.user_id}</div>
+          </div>
+          <div>
+            <div className="mypage-info-label">닉네임:</div>
+            <div className="mypage-info-input">{state.userInfo.nickname}</div>
+          </div>
+          <div>
+            <div className="mypage-info-label">이메일:</div>
+            <div className="mypage-info-input">{state.userInfo.email}</div>
+          </div>
+          <Link to="/user/alter">회원정보 수정</Link>
+        </div>
       </div>
-      <div id="mypage-rightside">
-        <div id="mypage-post"> 내가 올린 글
-          {getPosts.map(({ image, title, id }, index) => {
-          return (
-            <div className="post-one">
-              <PrevWTitle
+      <div id="mypage-bottom">
+        <div id="mypage-post">
+          <div id="mypage-post-title">내가 올린 글</div>
+          <div id="post-container">
+            {getPosts.map(({ image, title, id }, index) => {
+              return (
+                <PrevWTitle
                   image={image}
                   title={title}
                   id={id}
                   key={index}
                 />
-              </div>
-            )
-          }).slice(0, 5)}
-          <button onClick={handleClickPost}>더보기 </button>
+              )
+            }).slice(0, 5)}
+          </div>
+        <div className="btn-container">
+          <button id="mypage-post-btn" onClick={handleClickPost}>더보기</button>
         </div>
-        <div id="mypage-message">
-          <div id="mypage-received-request">
-            <div id="mypage-received-request-title">내가 받은 요청</div>
-            {
-              receivedRequests.map(({ image, title, id, confirmation }) =>
-                <YesNoButton
-                  image={image}
-                  title={title}
-                  id={id}
-                  confirmation={confirmation}
-                />).slice(0,5)
-            } 
+        </div>
+        <div id="mypage-request">
+          <div id="request-container">
+            <div id="mypage-received-request">
+              <div id="mypage-received-request-title">내가 받은 요청</div>
+              {
+                receivedRequests.map(({ image, title, id, confirmation }) =>
+                  <PrevWButton
+                    image={image}
+                    title={title}
+                    id={id}
+                    confirmation={confirmation}
+                  />).slice(0,5)
+              } 
+            </div>
+            <div id="mypage-sent-request">
+              <div id="mypage-sent-request-title">내가 보낸 요청</div>
+              {
+                sentRequests.map(({ image, title, id, confirmation }) =>
+                  <PrevWStatus
+                    image={image}
+                    title={title}
+                    id={id}
+                    confirmation={confirmation}
+                  />).slice(0,5)
+              } 
+            </div>
           </div>
-          <div id="mypage-sent-request">
-            <div id="mypage-sent-request-title">내가 보낸 요청</div>
-            {
-              sentRequests.map(({ image, title, id, confirmation }) =>
-                <PrevWStatus
-                  image={image}
-                  title={title}
-                  id={id}
-                  confirmation={confirmation}
-                />).slice(0,5)
-            } 
+          <div className="btn-container">
+            <button id="mypage-request-btn" onClick={handleClickMessage}>더보기</button>
           </div>
-          <button onClick={handleClickMessage}>더보기 </button>
         </div>
       </div>
     </div>

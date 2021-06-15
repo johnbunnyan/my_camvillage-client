@@ -23,7 +23,7 @@ function Item() {
     //     "updatedAt": "updatedAt",
     //     "categoryId": "categoryId"
     // }
-  const { id, title, description, brand, price, hashtag, image, category, userId } = itemInfo;
+  const { id, title, description, brand, price, hashtag, image, category, nickname } = itemInfo;
   
   useEffect(() => {
     axios
@@ -34,8 +34,6 @@ function Item() {
     .then(res => setitemInfo(res.data))
     .catch(e => console.log(e));
   }, [post_id])
-
-  console.log(itemInfo)
   
   function sendRequest() {
     console.log('send a request')
@@ -50,32 +48,47 @@ function Item() {
 
   return (
     <div id="item-body">
-      <img id="item-img" src={image} alt={`item #${id}`}></img>
+      <div className="item-img-container">
+        <img className="item-img" src={image} alt={`item #${id}`}></img>
+      </div>
       <div>
           <div id="item-title">{title}</div>
           <div id="item-user">
-              <div>{userId}</div>
+              <div>{nickname}</div>
           </div>
           <Route
            render={() => {
             if (hashtag) {
-                return (
-                  <div id="item-hashtag"> 해시태그: 
-                    {hashtag.map(tag => <span>#{tag}</span>)}
-                  </div>
-                );
+              return (
+                <div className="item-info">
+                  <label htmlFor="item-hashtag">해시태그:</label>
+                  {hashtag.map(tag => <div>#{tag.name}</div>)}
+                </div>
+              );
             } else {
-              return <div id="item-hashtag">해시태그: </div>
+              return <label htmlFor="item-hashtag">해시태그:</label>  
             }
-        }}
+          }}
         />
-          <div id="item-info">
-            <div id="item-category">{'카테고리: ' + category}</div>
-            <div id="item-brand">{'브랜드: ' + brand}</div>
-            <div id="item-price">{'가격: ' + price + '원'}</div>
-            <div id="item-description">{'특이사항: ' + description}</div>
+        <div className="item-info">
+          <label htmlFor="category">카테고리: </label>
+          <div id="item-category">{category}</div>
+        </div>
+        <div className="item-info">
+          <label htmlFor="brand">브랜드: </label>
+          <div id="item-brand">{brand}</div>
+        </div>
+        <div className="item-info">
+          <label htmlFor="price">가격: </label>
+          <div id="item-price">{price + '원'}</div>
+        </div>
+        <div className="item-info">
+          <label htmlFor="description">특이사항: </label>
+          <div id="item-description">{description}</div>
+        </div>
+          <div className="btn-container">
+            <button id="item-request-btn" onClick={sendRequest}>신청</button>
           </div>
-          <button id="item-request-btn" onClick={sendRequest}>신청</button>
       </div>
     </div>
   );

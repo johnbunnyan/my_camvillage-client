@@ -13,6 +13,7 @@ function SearchBar() {
 
     dispatch(setQueryString(queryString));
     dispatch(setCategory(category));
+    console.log(category, queryString)
     history.push(`/search?q=${queryString}&cat=${category}`)
   }
 
