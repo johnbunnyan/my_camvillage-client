@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 
 //글 목록 미리보기 (썸넬 + 제목 + 가격+ 내용) PrevWContent
 
-function PrevWContent({ image, title, price, id, description }) {
+function PrevWContent({ image, title, price, id, description, nickname }) {
 //   {
 //     "id": PK,
 //     "userId": "userId",
@@ -27,10 +27,17 @@ function PrevWContent({ image, title, price, id, description }) {
   
   return (
     <div className="prevwcontent-body">
-      <img className="prevwcontent-img" src={image} alt={`item #${id}`}></img>
-      <div id={id} onClick={handleClick}>{title}</div>
-      <div className="prevwcontent-price">{price}</div>
-      <div className="prevwcontent-description">{description}</div>
+      <div className="preview-img-container">
+        <img className="preview-img" src={image} alt={`item #${id}`}></img>
+      </div>
+      <div className="prevwcontent-info">
+        <div className="prevwcontent-title" id={id} onClick={handleClick}>{title}</div>
+        <div>
+          <div className="prevwcontent-nickname">글쓴이 {nickname}</div>
+          <div className="prevwcontent-price">가격 {price}</div>
+        </div>
+        <div className="prevwcontent-description">{description}</div>
+      </div>
     </div>
   );
 }

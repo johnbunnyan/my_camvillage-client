@@ -19,7 +19,7 @@ function PrevWStatus({ image, title, id, confirmation }) {
   function statusMessage(confirmation) {
     switch (confirmation) {
       case '0':
-        return '상대방이 아직 답을 보내지 않았어요!';
+        return '상대방이 아직 답이 없어요!';
       case '1':
         return '상대방이 요청을 거절했어요!';
       case '2':
@@ -36,8 +36,10 @@ function PrevWStatus({ image, title, id, confirmation }) {
 
   return (
     <div className="prevwstatus-body">
-      <img className="prevwstatus-img" src={image} alt={`item #${id}`}></img>
-      <div id={id} onClick={handleClick}>{title}</div>
+      <div className="preview-img-container">
+        <img className="preview-img" src={image} alt={`item #${id}`}></img>
+      </div>
+      <div className="prevwstatus-title" id={id} onClick={handleClick}>{title}</div>
       <div className="prevwstatus-msg">{statusMessage(confirmation)}</div>
     </div>
   );

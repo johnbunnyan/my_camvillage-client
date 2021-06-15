@@ -10,7 +10,7 @@ function Main() {
     .get('http://localhost:4000/main',
     {
       'Content-Type': 'application/json',
-      withCredentials:true,
+      withCredentials: true,
     })
     .then(res => setDisplayImg(res.data.map(i => i.image)))
     .catch(e => console.log(e));
@@ -32,7 +32,9 @@ function Main() {
   return (
     <div id="main-body">
       <button onClick={() => moveLeft()}>{'<'}</button>
-      <img src={displayImg[displayImgNum]} alt="" />
+      <div id="main-img-container">
+        <img src={displayImg[displayImgNum]} alt="" />
+      </div>
       <button onClick={() => moveRight()}>{'>'}</button>
     </div>
   );

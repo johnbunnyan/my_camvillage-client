@@ -22,7 +22,9 @@ function Search() {
     .catch(e => {
       console.log(e);
       });
-      
+  }, [category, queryString])
+
+  useEffect(() => {
     if (category === 'title') { 
       //category = 'title' 이면 queryString을 포함하는 title 검색
       // 검색 결과: 텐트 (341)
@@ -37,19 +39,23 @@ function Search() {
       // #감성캠핑
       setSearchMessage(`#${queryString} (${searchResults.length})`);
     }
-  }, [category, queryString])
+  }, [category, queryString, searchResults])
+
+  console.log(searchResults)
   
   return (
     <div id="search-body">
+      <div id="search-message">{searchMessage}</div>
       <div id="search-results">
-        <div id="search-message">{searchMessage}</div>
         {
-          searchResults.map(({ image, title, id, description }) => 
+          searchResults.map(({ image, title, id, description, price, users }) => 
             <PrevWContent
             image={image}
             title={title}
             id={id}
-            description={description} />
+            description={description}
+            price={price}
+            nickname={users[0].nickname} />
           )
         }
       </div>

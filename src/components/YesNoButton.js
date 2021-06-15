@@ -35,8 +35,8 @@ function YesNoButton(props) {
       {(confirmation !== '0')
         ? <div className="yesnobutton-msg">{(confirmation === '1') ? '승낙!' : '거절!'}</div>
         : <div className="yesnobutton-btn">
-          <button className="ok-btn" value="1" onClick={sendConfirmation}>승낙</button>
-          <button className="no-btn" value="2" onClick={sendConfirmation}>거절</button>
+          <button className="ok-btn" value="1" onClick={sendConfirmation}>Y</button>
+          <button className="no-btn" value="2" onClick={sendConfirmation}>N</button>
         </div>
       }
       </div>

@@ -24,8 +24,10 @@ function PrevWButton({ image, title, id, confirmation }) {
 
   return (
     <div className="prevwbutton-body">
-      <img className="prevwbutton-img" src={image} alt={`item #${id}`}></img>
-      <div id={id} onClick={handleClick}>{title}</div>
+      <div className="preview-img-container">
+        <img className="preview-img" src={image} alt={`item #${id}`}></img>
+      </div>
+      <div className="prevwbutton-title" id={id} onClick={handleClick}>{title}</div>
       <YesNoButton confirmation={confirmation}/>
     </div>
   );

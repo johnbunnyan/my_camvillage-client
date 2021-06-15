@@ -58,9 +58,9 @@ function Alter(props) {
     const isTrue = UserId !== '' && Password !== '' &&
       NickName !== '' && Name !== '' && Email !== '';
 
-    if (!isTrue) {
-      handleError('ErrorAll', '모든 항목을 입력하지 않았습니다.')
-    } else {
+    // if (!isTrue) {
+    //   handleError('ErrorAll', '모든 항목을 입력하지 않았습니다.')
+    // } else {
       handleError('ErrorAll', '')
       axios
       .put('http://localhost:4000/user/alter',
@@ -72,7 +72,7 @@ function Alter(props) {
       },
       {
         headers: {
-          Authorization: `Bearer ${state.accessToken}`,
+          'Authorization': `Bearer ${state.accessToken}`,
           'Content-Type': 'application/json',
         },
         withCredentials: true,
@@ -90,40 +90,38 @@ function Alter(props) {
       })
    
     }
-  }
+  
 
   return (
     <div id='alter-body'>
-      <div id='leftside'>
-        <img alt=""></img>
-        <div>
-          <button>사진 추가/변경</button>
-        </div>
+      <div id='alter-img'>
+        <img alt="user_image"></img>
+        <button id="alter-img-btn">사진 추가/변경</button>
       </div>
-      <div id='alter-rightside'>
-        <div>
-          <span>아이디:  </span>
-          <input type='alterId' value={UserId} name="UserId" onChange={onChange}></input>
+      <div id='alter-info'>
+        <div id='alter-name'>
+          <div id='alter-name-label'>이름:</div>
+          <div id='alter-name-display'>{props.userInfo.name}</div>
         </div>
         <div>
-          <span>닉네임:   </span>
-          <input type='alterNickname' value={NickName} name="NickName" onChange={onChange}></input>
+          <label htmlFor="alter-id">아이디:</label>
+          <input name="alter-id" defaultValue={UserId} onChange={onChange}></input>
         </div>
         <div>
-          <span>이름:   </span>
-          <div type='alterName' value={Name} name="Name">{props.userInfo.name}</div>
+          <label htmlFor="alter-nickname">닉네임:</label>
+          <input name="alter-id" defaultValue={NickName} onChange={onChange}></input>
         </div>
         <div>
-          <span>이메일:   </span>
-          <input type='alterEmail' value={Email} name="Email" onChange={onChange}></input>
+          <label htmlFor="alter-email">이메일:</label>
+          <input name="alter-id" defaultValue={Email} onChange={onChange}></input>
         </div>
         <div>
-          <span>비밀먼호:   </span>
-          <input type='alterPassword' name="Password" onChange={onChange}></input>
+          <label htmlFor="alter-password">비밀번호:</label>
+          <input name="alter-id" onChange={onChange}></input>
         </div>
         <div>
-          <span>비밀먼호 확인:   </span>
-          <input type='alterConfirmPassword' name="ConfirmPassword" onChange={onChange}></input>
+          <label htmlFor="alter-confirmpassword">비밀번호 확인:</label>
+          <input name="alter-id" onChange={onChange}></input>
         </div>
         <Route
           render={() => {
@@ -136,9 +134,9 @@ function Alter(props) {
             }
           }}
         />
-        <button className='btnalter' type='submit' onClick={handleAlter}>
-          수정하기
-      </button>
+        <div>
+          <button id='alter-btn' onClick={handleAlter}>수정하기</button>
+        </div>
         <Route
           render={() => {
             if (ErrorAll !== '') {
