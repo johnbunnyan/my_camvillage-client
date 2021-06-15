@@ -88,7 +88,6 @@ function Alter(props) {
       .catch((e) => {
         console.log(e)
       })
-   
     }
   }
 

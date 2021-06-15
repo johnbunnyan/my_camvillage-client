@@ -10,11 +10,8 @@ import MyRequest from './pages/MyRequest';
 import Search from './pages/Search';
 import Signup from './pages/Signup';
 import Upload from './pages/Upload';
-
 import './App.css';
-
 import { useSelector } from 'react-redux';
-
 import {
   BrowserRouter as Router,
   Switch,
@@ -29,6 +26,7 @@ import {
 //글 목록 미리보기 (썸넬 + 제목 + 가격+ 내용) PrevWContent
 
 function App() {
+
   const {isLogin, userInfo} = useSelector((state) => {
     return {
       isLogin: state.isLogin,
