@@ -50,7 +50,7 @@ function Signup(props) {
 
   useEffect(() => {
     if (Password !== ConfirmPassword) {
-      handleError('ErrorPassword', '비밀번호, 비밀번호확인란이 일치하지 않습니다.')
+      handleError('ErrorPassword', '비밀번호가 일치하지 않습니다.')
     } else {
       handleError('ErrorPassword', '');
     }
@@ -138,102 +138,100 @@ function Signup(props) {
     <div id='signup-body'>
     <center>
       <div>로고이미지 띄우기</div>
-      <div>
-        <span>아이디:  </span>
-        <input type='signupId' name="UserId" onChange={onChange}></input>
+      <div className="signup-field">
+        <span>이름:</span>
+        <input type='signupName' name="Name" onChange={onChange}></input>
+        <Route
+          render={() => {
+            if (ErrorName !== '') {
+                return (
+                    <div className='alert-box'>
+                        {ErrorName}
+                    </div>
+                );
+            }
+        }}
+        />
       </div>
-      <Route
-         render={() => {
-          if (ErrorId !== '') {
-              return (
-                  <div className='alert-box'>
-                      {ErrorId}
-                  </div>
-              );
-          }
-      }}
-      />
-      <div>
-        <span>비밀먼호:   </span>
+      <div className="signup-field">
+        <span>아이디:</span>
+        <input type='signupId' name="UserId" onChange={onChange}></input>
+        <Route
+          render={() => {
+            if (ErrorId !== '') {
+                return (
+                    <div className='alert-box'>
+                        {ErrorId}
+                    </div>
+                );
+            }
+        }}
+        />
+      </div>
+      <div className="signup-field">
+        <span>비밀번호:</span>
         <input type='signupPassword' name="Password" onChange={onChange}></input>
       </div>
-      <div>
-        <span>비밀먼호 확인:   </span>
+      <div className="signup-field">
+        <span>비밀번호 확인:</span>
         <input type='signupConfirmPassword' name="ConfirmPassword" onChange={onChange}></input>
+        <Route
+          render={() => {
+            if (ErrorPassword !== '') {
+                return (
+                    <div className='alert-box'>
+                        {ErrorPassword}
+                    </div>
+                );
+            }
+        }}
+        />
       </div>
-      <Route
-         render={() => {
-          if (ErrorPassword !== '') {
-              return (
-                  <div className='alert-box'>
-                      {ErrorPassword}
-                  </div>
-              );
-          }
-      }}
-      />
-      <div>
-        <span>닉네임:   </span>
+      <div className="signup-field">
+        <span>닉네임:</span>
         <input type='signupNickname' name="NickName" onChange={onChange}></input>
+        <Route
+          render={() => {
+            if (ErrorNickName !== '') {
+                return (
+                    <div className='alert-box'>
+                        {ErrorNickName}
+                    </div>
+                );
+            }
+        }}
+        />
       </div>
-      <Route
-         render={() => {
-          if (ErrorNickName !== '') {
-              return (
-                  <div className='alert-box'>
-                      {ErrorNickName}
-                  </div>
-              );
-          }
-      }}
-      />
-      <div>
-        <span>이름:   </span>
-        <input type='signupName' name="Name" onChange={onChange}></input>
-      </div>
-      <Route
-         render={() => {
-          if (ErrorName !== '') {
-              return (
-                  <div className='alert-box'>
-                      {ErrorName}
-                  </div>
-              );
-          }
-      }}
-      />
-      <div>
+      <div className="signup-field">
         <span>이메일:   </span>
         <input type='signupEmail' name="Email" onChange={onChange}></input>
+        <Route
+          render={() => {
+            if (ErrorEmail !== '') {
+                return (
+                    <div className='alert-box'>
+                        {ErrorEmail}
+                    </div>
+                );
+            }
+        }}
+        />
       </div>
-      <div>
-      <Route
-         render={() => {
-          if (ErrorEmail !== '') {
-              return (
-                  <div className='alert-box'>
-                      {ErrorEmail}
-                  </div>
-              );
-          }
-      }}
-      />
-        <Link to='/user/login'>기존회원이신가요 ?</Link>
+      <div id="signup-btn">
+        <Link to='/user/login'>기존에 등록된 계정이 있습니다.</Link>
+        <button className='btnsignup' type='submit' onClick={handleSignUp}>회원가입</button>
+        <Route
+          render={() => {
+            if (ErrorAll !== '') {
+                return (
+                    <div className='alert-box'>
+                        {ErrorAll}
+                    </div>
+                );
+            }
+        }}
+        />
       </div>
-      <button className='btnsignup' type='submit' onClick={handleSignUp}>
-        회원가입
-      </button>
-      <Route
-         render={() => {
-          if (ErrorAll !== '') {
-              return (
-                  <div className='alert-box'>
-                      {ErrorAll}
-                  </div>
-              );
-          }
-      }}
-      />
     </center>
   </div>
   );

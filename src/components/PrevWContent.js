@@ -31,11 +31,8 @@ function PrevWContent({ image, title, price, id, description, nickname }) {
         <img className="preview-img" src={image} alt={`item #${id}`}></img>
       </div>
       <div className="prevwcontent-info">
-        <div className="prevwcontent-title" id={id} onClick={handleClick}>{title}</div>
-        <div>
-          <div className="prevwcontent-nickname">글쓴이 {nickname}</div>
-          <div className="prevwcontent-price">가격 {price}</div>
-        </div>
+        <div className="preview-title" id={id} onClick={handleClick}>{title}</div>
+        <div className="prevwcontent-nicknameprice">{nickname} | {price}원</div>
         <div className="prevwcontent-description">{description}</div>
       </div>
     </div>

@@ -96,38 +96,40 @@ function Alter() {
 
   return (
     <div id='alter-body'>
-      <div id='alter-img'>
-        <img alt="user_image"></img>
-        <button id="alter-img-btn">사진 추가/변경</button>
-      </div>
       <div id='alter-info'>
-        <div id='alter-name'>
-          <div id='alter-name-label'>이름:</div>
-          <div id='alter-name-display'>{Name}</div>
+        <div id='alter-img'>
+          <img alt="user_image"></img>
+          <button id="alter-img-btn">사진 추가/변경</button>
         </div>
-        <div>
-          <label htmlFor="UserId">아이디:</label>
-          <input name="UserId" defaultValue={UserId} onChange={onChange}></input>
+        <div id='alter-input'>
+          <div id='alter-name'>
+            <div id='alter-name-label'>이름:</div>
+            <div id='alter-name-display'>{Name}</div>
+          </div>
+          <div>
+            <label htmlFor="UserId">아이디:</label>
+            <input name="UserId" defaultValue={UserId} onChange={onChange}></input>
+          </div>
+          <div>
+            <label htmlFor="NickName">닉네임:</label>
+            <input name="NickName" defaultValue={NickName} onChange={onChange}></input>
+          </div>
+          <div>
+            <label htmlFor="Email">이메일:</label>
+            <input name="Email" defaultValue={Email} onChange={onChange}></input>
+          </div>
+          <div>
+            <label htmlFor="Password">비밀번호:</label>
+            <input name="Password" onChange={onChange}></input>
+          </div>
+          <div>
+            <label htmlFor="ConfirmPassword">비밀번호 확인:</label>
+            <input name="ConfirmPassword" onChange={onChange}></input>
+          </div>
         </div>
-        <div>
-          <label htmlFor="NickName">닉네임:</label>
-          <input name="NickName" defaultValue={NickName} onChange={onChange}></input>
-        </div>
-        <div>
-          <label htmlFor="Email">이메일:</label>
-          <input name="Email" defaultValue={Email} onChange={onChange}></input>
-        </div>
-        <div>
-          <label htmlFor="Password">비밀번호:</label>
-          <input name="Password" onChange={onChange}></input>
-        </div>
-        <div>
-          <label htmlFor="ConfirmPassword">비밀번호 확인:</label>
-          <input name="ConfirmPassword" onChange={onChange}></input>
-        </div>
-        <div>
-          <button id='alter-btn' onClick={handleAlter}>수정하기</button>
-        </div>
+      </div>
+      <div id="alter-btn">
+        <button onClick={handleAlter}>수정하기</button>
         <Route
           render={() => {
             if (ErrorPassword !== '') {

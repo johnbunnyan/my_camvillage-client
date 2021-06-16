@@ -7,7 +7,9 @@ import { Route } from "react-router-dom";
 function Item() {
   const user_id = useSelector(state => state.userInfo.user_id);
   const post_id = window.location.pathname.slice(6);
-  const [itemInfo, setitemInfo] = useState({});
+  const [itemInfo, setItemInfo] = useState({});
+  const [image, setImage] = useState("");
+
     //   {
     //     "id": PK,
     //     "userId": "userId",
@@ -23,7 +25,7 @@ function Item() {
     //     "updatedAt": "updatedAt",
     //     "categoryId": "categoryId"
     // }
-  const { id, title, description, brand, price, hashtag, image, category, nickname } = itemInfo;
+  const { id, title, description, brand, price, hashtag, category, nickname } = itemInfo;
   
   useEffect(() => {
     axios
@@ -31,7 +33,14 @@ function Item() {
     {
       post_id: post_id
     })
-    .then(res => setitemInfo(res.data))
+    .then(res =>{
+      if (res.data.images) {
+        let buff = new Buffer(res.data.images[0], "base64");
+        let text = buff.toString("ascii");
+        setImage(`data:image/png;base64,${text}`)
+      }
+      setItemInfo(res.data)
+    })
     .catch(e => console.log(e));
   }, [post_id])
   
@@ -51,11 +60,10 @@ function Item() {
       <div className="item-img-container">
         <img className="item-img" src={image} alt={`item #${id}`}></img>
       </div>
-      <div>
+      <div id="item-info-container">
           <div id="item-title">{title}</div>
-          <div id="item-user">
-              <div>{nickname}</div>
-          </div>
+          <div id="item-user">작성자: {nickname}</div>
+          <hr></hr>
           <Route
            render={() => {
             if (hashtag) {

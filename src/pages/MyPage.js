@@ -119,12 +119,14 @@ function MyPage() {
             <div className="mypage-info-label">이메일:</div>
             <div className="mypage-info-input">{state.userInfo.email}</div>
           </div>
-          <Link to="/user/alter">회원정보 수정</Link>
+          <div className="btn-container">
+            <Link to="/user/alter">회원정보 수정</Link>
+          </div>
         </div>
       </div>
       <div id="mypage-bottom">
         <div id="mypage-post">
-          <div id="mypage-post-title">내가 올린 글</div>
+          <div id="mypage-post-title">나의 작성글</div>
           <div id="post-container">
             {getPosts.map(({ image, title, id }, index) => {
               return (
@@ -135,7 +137,7 @@ function MyPage() {
                   key={index}
                 />
               )
-            }).slice(0, 5)}
+            }).slice(0, 3)}
           </div>
         <div className="btn-container">
           <button id="mypage-post-btn" onClick={handleClickPost}>더보기</button>
@@ -144,7 +146,7 @@ function MyPage() {
         <div id="mypage-request">
           <div id="request-container">
             <div id="mypage-received-request">
-              <div id="mypage-received-request-title">내가 받은 요청</div>
+              <div id="mypage-received-request-title">받은 요청</div>
               {
                 receivedRequests.map(({ image, title, id, confirmation }) =>
                   <PrevWButton
@@ -152,11 +154,11 @@ function MyPage() {
                     title={title}
                     id={id}
                     confirmation={confirmation}
-                  />).slice(0,5)
+                  />).slice(0,3)
               } 
             </div>
             <div id="mypage-sent-request">
-              <div id="mypage-sent-request-title">내가 보낸 요청</div>
+              <div id="mypage-sent-request-title">보낸 요청</div>
               {
                 sentRequests.map(({ image, title, id, confirmation }) =>
                   <PrevWStatus
@@ -164,7 +166,7 @@ function MyPage() {
                     title={title}
                     id={id}
                     confirmation={confirmation}
-                  />).slice(0,5)
+                  />).slice(0,3)
               } 
             </div>
           </div>

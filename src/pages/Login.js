@@ -95,38 +95,40 @@ function Login(props) {
     <div id='login-body'>
       <center>
         <div>로고이미지 띄우기</div>
-        <div>
-          <span>아이디:  </span>
+        <div className="login-field">
+          <span>아이디:</span>
           <input type='loginId' name="UserId" onChange={onChange}></input>
         </div>
-        <div>
-          <span>비밀번호:   </span>
+        <div className="login-field">
+          <span>비밀번호:</span>
           <input type='loginPassword' name="Password" onChange={onChange}></input>
         </div>
-        <div>
+        <div id="login-btn">
           <Link to='/user/signup'>회원가입</Link>
+          <button onClick={handleLogin}>로그인</button>
+          <GoogleLogin
+            clientId={"FILL_ME_IN"}
+            buttonText="Login"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={'single_host_origin'}
+            render={renderProps => <button onClick={renderProps.onClick} 
+            style={
+              {display: 'block'}
+            }>Login with Google</button>}
+          />
+          <Route
+            render={() => {
+              if (ErrorMessage !== '') {
+                return (
+                  <div className='alert-box'>
+                    {ErrorMessage}
+                  </div>
+                );
+              }
+            }}
+          />
         </div>
-        <button className='btnlogin' type='submit' onClick={handleLogin}>
-          로그인
-        </button>
-        <Route
-          render={() => {
-            if (ErrorMessage !== '') {
-              return (
-                <div className='alert-box'>
-                  {ErrorMessage}
-                </div>
-              );
-            }
-          }}
-        />
-        <GoogleLogin
-          clientId={"FILL_ME_IN"}
-          buttonText="Login"
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-          cookiePolicy={'single_host_origin'}
-        />
       </center>
     </div>
   );

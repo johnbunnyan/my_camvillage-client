@@ -4,17 +4,16 @@ import Dropdown from './Dropdown.js';
 import SearchBar from './SearchBar.js';
 
 function Nav() {
-  let logo = <img id="logo" src="../logo.png" alt="" />
-
   return (
     <div id="nav-body">
-      <span id="title">
-        {logo}
+      <div id="nav-title">
         <Link to="/">CamVillage</Link>
-      </span>
+      </div>
       <SearchBar />
-      <Link to="/item/upload">글쓰기</Link>
-      <Dropdown />
+      <div id="nav-btn">
+        <Link to="/item/upload">글쓰기</Link>
+        <Dropdown />
+      </div>
     </div>
   );
 }
