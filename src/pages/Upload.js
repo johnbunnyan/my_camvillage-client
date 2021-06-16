@@ -124,14 +124,16 @@ function Upload() {
           <label htmlFor="hashtag">해시태그:</label>
           <div>
             <input name="hashtag" id="hashtag" onKeyDown={inputKeyDown} />
-            {
-              hashtag.map((tag, i) => (
-                <li key={tag}>
-                  {tag}
-                  <button onClick={() => {removeTag(i)}}>x</button>
-                </li>
-              ))
-            }
+            <ul>            
+              {
+                hashtag.map((tag, i) => (
+                  <li key={tag}>
+                    {tag}
+                    <button onClick={() => {removeTag(i)}}>x</button>
+                  </li>
+                ))
+              }
+            </ul>
           </div>
         </div>
         <div id='upload-form-category'>
@@ -158,7 +160,7 @@ function Upload() {
         </div>
       </div>
       <div className="btn-container">
-        <input type="submit" value="등록"></input>
+        <input id="upload-btn" type="submit" value="등록"></input>
       </div>
     </form>
   );

@@ -29,7 +29,7 @@ function PrevWTitle({ image, title, id }) {
       <div className="preview-img-container">
         <img className="preview-img" src={image} alt={`item #${id}`}></img>
       </div>
-      <div className="prevwtitle-title" id={id} onClick={handleClick}>{title}</div>
+      <div className="preview-title" id={id} onClick={handleClick}>{title}</div>
     </div>
   );
 }

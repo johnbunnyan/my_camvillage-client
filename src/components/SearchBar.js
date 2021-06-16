@@ -18,16 +18,14 @@ function SearchBar() {
   }
 
   return (
-    <div className="search-bar">
-      <select >
+    <div id="search-bar">
+      <select>
         <option value="title">제목</option>
         <option value="nickname">닉네임</option>
         <option value="hashtag">해쉬태그</option>
       </select>
-      <input className="search-input" type="text" />
-      <button onClick={handleSrchClk} className="search-button">
-        검색
-      </button>
+      <input id="search-input" type="text" />
+      <button onClick={handleSrchClk} className="search-button">검색</button>
     </div>
   )
 }

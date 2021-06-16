@@ -13,35 +13,41 @@ function Item() {
   });
 
   const post_id = window.location.pathname.slice(6);
-  const [itemInfo, setitemInfo] = useState({});
-  //   {
-  //     "id": PK,
-  //     "userId": "userId",
-  //     "nickname": "nickname",
-  //     "user_image": "user_image",
-  //     "title": "title",
-  //     "description": "description",
-  //     "brand": "brand",
-  //     "price": "price",
-  //     "hashtag": "hashtag",
-  //     "image": "image",
-  //     "createdAt": "createdAt",
-  //     "updatedAt": "updatedAt",
-  //     "categoryId": "categoryId"
-  // }
-  const { id, title, description, brand, price, hashtag, image, category, nickname } = itemInfo;
+  const [itemInfo, setItemInfo] = useState({});
+  const [image, setImage] = useState("");
 
+    //   {
+    //     "id": PK,
+    //     "userId": "userId",
+    //     "nickname": "nickname",
+    //     "user_image": "user_image",
+    //     "title": "title",
+    //     "description": "description",
+    //     "brand": "brand",
+    //     "price": "price",
+    //     "hashtag": "hashtag",
+    //     "image": "image",
+    //     "createdAt": "createdAt",
+    //     "updatedAt": "updatedAt",
+    //     "categoryId": "categoryId"
+    // }
+  const { id, title, description, brand, price, hashtag, category, nickname } = itemInfo;
+  
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/item/${post_id}`,
-        {
-          post_id: post_id
-        })
-      .then(res => {
-        console.log(res.data)
-        setitemInfo(res.data)
-      })
-      .catch(e => console.log(e));
+    .get(`http://localhost:4000/item/${post_id}`,
+    {
+      post_id: post_id
+    })
+    .then(res =>{
+      if (res.data.images) {
+        let buff = new Buffer(res.data.images[0], "base64");
+        let text = buff.toString("ascii");
+        setImage(`data:image/png;base64,${text}`)
+      }
+      setItemInfo(res.data)
+    })
+    .catch(e => console.log(e));
   }, [post_id])
 
   function sendRequest() {
@@ -63,13 +69,12 @@ function Item() {
       <div className="item-img-container">
         <img className="item-img" src={image} alt={`item #${id}`}></img>
       </div>
-      <div>
-        <div id="item-title">{title}</div>
-        <div id="item-user">
-          <div>{nickname}</div>
-        </div>
-        <Route
-          render={() => {
+      <div id="item-info-container">
+          <div id="item-title">{title}</div>
+          <div id="item-user">작성자: {nickname}</div>
+          <hr></hr>
+          <Route
+           render={() => {
             if (hashtag) {
               return (
                 <div className="item-info">
