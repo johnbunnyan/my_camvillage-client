@@ -140,7 +140,7 @@ function Signup(props) {
       <div>로고이미지 띄우기</div>
       <div>
         <span>아이디:  </span>
-        <input type='signupId' name="UserId" onChange={onChange}></input>
+        <input type='text' name="UserId" onChange={onChange}></input>
       </div>
       <Route
          render={() => {
@@ -155,11 +155,11 @@ function Signup(props) {
       />
       <div>
         <span>비밀먼호:   </span>
-        <input type='signupPassword' name="Password" onChange={onChange}></input>
+        <input type='password' name="Password" onChange={onChange}></input>
       </div>
       <div>
         <span>비밀먼호 확인:   </span>
-        <input type='signupConfirmPassword' name="ConfirmPassword" onChange={onChange}></input>
+        <input type='password' name="ConfirmPassword" onChange={onChange}></input>
       </div>
       <Route
          render={() => {
@@ -174,7 +174,7 @@ function Signup(props) {
       />
       <div>
         <span>닉네임:   </span>
-        <input type='signupNickname' name="NickName" onChange={onChange}></input>
+        <input type='text' name="NickName" onChange={onChange}></input>
       </div>
       <Route
          render={() => {
@@ -189,7 +189,7 @@ function Signup(props) {
       />
       <div>
         <span>이름:   </span>
-        <input type='signupName' name="Name" onChange={onChange}></input>
+        <input type='text' name="Name" onChange={onChange}></input>
       </div>
       <Route
          render={() => {
@@ -204,7 +204,7 @@ function Signup(props) {
       />
       <div>
         <span>이메일:   </span>
-        <input type='signupEmail' name="Email" onChange={onChange}></input>
+        <input type='text' name="Email" onChange={onChange}></input>
       </div>
       <div>
       <Route
