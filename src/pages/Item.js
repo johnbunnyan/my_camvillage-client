@@ -5,7 +5,13 @@ import { Route } from "react-router-dom";
 
 // not found api 추가
 function Item() {
-  const user_id = useSelector(state => state.userInfo.user_id);
+  const { user_id, stateNickname } = useSelector(state => {
+    return {
+      user_id: state.userInfo.user_id,
+      stateNickname: state.userInfo.nickname,
+    }
+  });
+
   const post_id = window.location.pathname.slice(6);
   const [itemInfo, setItemInfo] = useState({});
   const [image, setImage] = useState("");
@@ -43,16 +49,19 @@ function Item() {
     })
     .catch(e => console.log(e));
   }, [post_id])
-  
+
   function sendRequest() {
     console.log('send a request')
     axios.post('http://localhost:4000/item/request',
-    {
-      post_id: post_id,
-      user_id: user_id
-    })
-    .then(res => console.log(res))
-    .catch(e => console.log(e));
+      {
+        post_id: post_id,
+        user_id: user_id
+      })
+      .then(res => {
+        console.log('item=', res)
+      }
+      )
+      .catch(e => console.log(e));
   }
 
   return (
@@ -74,7 +83,7 @@ function Item() {
                 </div>
               );
             } else {
-              return <label htmlFor="item-hashtag">해시태그:</label>  
+              return <label htmlFor="item-hashtag">해시태그:</label>
             }
           }}
         />
@@ -94,9 +103,17 @@ function Item() {
           <label htmlFor="description">특이사항: </label>
           <div id="item-description">{description}</div>
         </div>
-          <div className="btn-container">
-            <button id="item-request-btn" onClick={sendRequest}>신청</button>
-          </div>
+        <Route
+          render={() => {
+            if (stateNickname !== nickname) {
+              return (
+                <div className="btn-container">
+                  <button id="item-request-btn" onClick={sendRequest}>신청</button>
+                </div>
+              )
+            }
+          }}
+        />
       </div>
     </div>
   );

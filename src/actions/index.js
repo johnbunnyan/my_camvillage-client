@@ -63,6 +63,7 @@ export const userLogout = () => {
       isLogin: false,
       userInfo: '',
       notifications: 0,
+      accessToken: '',
     }
   }
 }
