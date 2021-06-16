@@ -5,45 +5,57 @@ import { Route } from "react-router-dom";
 
 // not found api 추가
 function Item() {
-  const user_id = useSelector(state => state.userInfo.user_id);
+  const { user_id, stateNickname } = useSelector(state => {
+    return {
+      user_id: state.userInfo.user_id,
+      stateNickname: state.userInfo.nickname,
+    }
+  });
+
   const post_id = window.location.pathname.slice(6);
   const [itemInfo, setitemInfo] = useState({});
-    //   {
-    //     "id": PK,
-    //     "userId": "userId",
-    //     "nickname": "nickname",
-    //     "user_image": "user_image",
-    //     "title": "title",
-    //     "description": "description",
-    //     "brand": "brand",
-    //     "price": "price",
-    //     "hashtag": "hashtag",
-    //     "image": "image",
-    //     "createdAt": "createdAt",
-    //     "updatedAt": "updatedAt",
-    //     "categoryId": "categoryId"
-    // }
+  //   {
+  //     "id": PK,
+  //     "userId": "userId",
+  //     "nickname": "nickname",
+  //     "user_image": "user_image",
+  //     "title": "title",
+  //     "description": "description",
+  //     "brand": "brand",
+  //     "price": "price",
+  //     "hashtag": "hashtag",
+  //     "image": "image",
+  //     "createdAt": "createdAt",
+  //     "updatedAt": "updatedAt",
+  //     "categoryId": "categoryId"
+  // }
   const { id, title, description, brand, price, hashtag, image, category, nickname } = itemInfo;
-  
+
   useEffect(() => {
     axios
-    .get(`http://localhost:4000/item/${post_id}`,
-    {
-      post_id: post_id
-    })
-    .then(res => setitemInfo(res.data))
-    .catch(e => console.log(e));
+      .get(`http://localhost:4000/item/${post_id}`,
+        {
+          post_id: post_id
+        })
+      .then(res => {
+        console.log(res.data)
+        setitemInfo(res.data)
+      })
+      .catch(e => console.log(e));
   }, [post_id])
-  
+
   function sendRequest() {
     console.log('send a request')
     axios.post('http://localhost:4000/item/request',
-    {
-      post_id: post_id,
-      user_id: user_id
-    })
-    .then(res => console.log(res))
-    .catch(e => console.log(e));
+      {
+        post_id: post_id,
+        user_id: user_id
+      })
+      .then(res => {
+        console.log('item=', res)
+      }
+      )
+      .catch(e => console.log(e));
   }
 
   return (
@@ -52,12 +64,12 @@ function Item() {
         <img className="item-img" src={image} alt={`item #${id}`}></img>
       </div>
       <div>
-          <div id="item-title">{title}</div>
-          <div id="item-user">
-              <div>{nickname}</div>
-          </div>
-          <Route
-           render={() => {
+        <div id="item-title">{title}</div>
+        <div id="item-user">
+          <div>{nickname}</div>
+        </div>
+        <Route
+          render={() => {
             if (hashtag) {
               return (
                 <div className="item-info">
@@ -66,7 +78,7 @@ function Item() {
                 </div>
               );
             } else {
-              return <label htmlFor="item-hashtag">해시태그:</label>  
+              return <label htmlFor="item-hashtag">해시태그:</label>
             }
           }}
         />
@@ -86,9 +98,17 @@ function Item() {
           <label htmlFor="description">특이사항: </label>
           <div id="item-description">{description}</div>
         </div>
-          <div className="btn-container">
-            <button id="item-request-btn" onClick={sendRequest}>신청</button>
-          </div>
+        <Route
+          render={() => {
+            if (stateNickname !== nickname) {
+              return (
+                <div className="btn-container">
+                  <button id="item-request-btn" onClick={sendRequest}>신청</button>
+                </div>
+              )
+            }
+          }}
+        />
       </div>
     </div>
   );

@@ -16,13 +16,16 @@ function YesNoButton(props) {
     })
     //new api, post request 진행 중
     axios
-    .post("http://localhost:4000/confirmation",
+    .put("http://localhost:4000/item/confirmation",
     {
       id: postId, // request의 아이디 찾을수 있는지 확인 필요
       userId: user_id,
       confirmation: newConfirmation
     })
-    .then(res => res)
+    .then(res => {
+      console.log(res)
+      return res
+    })
     .catch(e => {
       console.log(e)
     })

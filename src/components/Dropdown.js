@@ -12,21 +12,22 @@ function Dropdown() {
   function handleLogout() {
     console.log('state')
     console.log(state)
-    axios.post('http://localhost:4000/user/logout', {},
-    {
-      headers: {
-        'Authorization': `Bearer ${state.accessToken}`,
-        'Content-Type': 'application/json',
-      },
-      withCredentials: true,
-    })
-    .then(res => {
-      dispatch(userLogout());
-      history.push('/');
-    })
-    .catch((e) => {
-      console.log(e);
-    })
+    axios
+      .post('http://localhost:4000/user/logout',
+        {
+          headers: {
+            Authorization: `Bearer ${state.accessToken}`,
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        })
+      .then(res => {
+        dispatch(userLogout());
+        history.push('/');
+      })
+      .catch((e) => {
+        console.log(e);
+      })
   }
 
   return (

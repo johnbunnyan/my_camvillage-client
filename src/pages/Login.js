@@ -97,11 +97,11 @@ function Login(props) {
         <div>로고이미지 띄우기</div>
         <div>
           <span>아이디:  </span>
-          <input type='loginId' name="UserId" onChange={onChange}></input>
+          <input type='text' name="UserId" onChange={onChange}></input>
         </div>
         <div>
           <span>비밀번호:   </span>
-          <input type='loginPassword' name="Password" onChange={onChange}></input>
+          <input type='password' name="Password" onChange={onChange}></input>
         </div>
         <div>
           <Link to='/user/signup'>회원가입</Link>

@@ -119,11 +119,11 @@ function Alter() {
         </div>
         <div>
           <label htmlFor="Password">비밀번호:</label>
-          <input name="Password" onChange={onChange}></input>
+          <input type="password" name="Password" onChange={onChange}></input>
         </div>
         <div>
           <label htmlFor="ConfirmPassword">비밀번호 확인:</label>
-          <input name="ConfirmPassword" onChange={onChange}></input>
+          <input type="password" name="ConfirmPassword" onChange={onChange}></input>
         </div>
         <div>
           <button id='alter-btn' onClick={handleAlter}>수정하기</button>

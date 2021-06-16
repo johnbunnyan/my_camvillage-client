@@ -27,6 +27,8 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         isLogin: action.payload.isLogin,
         userInfo: action.payload.userInfo,
+        accessToken: action.payload.accessToken,
+        notification: action.payload.notification,
       });
 
     case SETCATEGORY:
