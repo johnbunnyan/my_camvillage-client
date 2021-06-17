@@ -19,6 +19,8 @@ import {
   Redirect
 } from "react-router-dom";
 
+require("dotenv").config();
+
 //미리보기 컴포넌트화:
 //마이페이지 내글 미리보기 (썸넬 + 제목) PrevWTitle
 //수신 요청 미리보기 (썸넬 + 제목 + 버튼 or 내 응답) PrevWButton

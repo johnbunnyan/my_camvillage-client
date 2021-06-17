@@ -47,7 +47,7 @@ function Login(props) {
             withCredentials: true,
           })
         .then((res) => {
-          console.log(res.data)
+          console.log('login', res.data)
           dispatch(userLogin(res.data))
         })
         .then(res => {
@@ -61,7 +61,7 @@ function Login(props) {
   }
 
   const responseGoogle = (response) => {
-    console.log(response.accessToken);
+    console.log(response);
     console.log(response.Ft.Ue);
     axios
     .post('http://localhost:4000/user/login/google',
@@ -78,7 +78,7 @@ function Login(props) {
       withCredentials: true,
     })
     .then(res => {
-      console.log(res.data)
+      console.log(res)
       dispatch(userLogin(res.data))
     })
     .then(res =>{
@@ -87,27 +87,23 @@ function Login(props) {
     })
   }
 
-  const logout = () => {
-    console.log('logout')
-  }
-
   return (
     <div id='login-body'>
       <center>
         <div>로고이미지 띄우기</div>
         <div className="login-field">
           <span>아이디:</span>
-          <input type='loginId' name="UserId" onChange={onChange}></input>
+          <input name="UserId" onChange={onChange}></input>
         </div>
         <div className="login-field">
           <span>비밀번호:</span>
-          <input type='loginPassword' name="Password" onChange={onChange}></input>
+          <input type="password" name="Password" onChange={onChange}></input>
         </div>
         <div id="login-btn">
           <Link to='/user/signup'>회원가입</Link>
           <button onClick={handleLogin}>로그인</button>
           <GoogleLogin
-            clientId={"FILL_ME_IN"}
+            clientId={"709887458993-labrs9ggb2u6buvpmm1vrp5phvla90bs.apps.googleusercontent.com"}
             buttonText="Login"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}

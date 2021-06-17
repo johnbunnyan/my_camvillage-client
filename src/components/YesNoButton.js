@@ -18,7 +18,7 @@ function YesNoButton(props) {
     axios
     .put("http://localhost:4000/item/confirmation",
     {
-      id: postId, // request의 아이디 찾을수 있는지 확인 필요
+      post_id: postId, // request의 아이디 찾을수 있는지 확인 필요
       userId: user_id,
       confirmation: newConfirmation
     })

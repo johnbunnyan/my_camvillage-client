@@ -15,9 +15,6 @@ function Main() {
     .then(res => setDisplayImg(res.data.map(i => i.image)))
     .catch(e => console.log(e));
   }, [])
-
-  console.log(displayImg)
-  console.log(displayImg[displayImgNum])
   
   function moveLeft() {
     if (displayImgNum === 0) setDisplayImgNum(displayImg.length - 1);
@@ -33,7 +30,7 @@ function Main() {
     <div id="main-body">
       <button onClick={() => moveLeft()}>{'<'}</button>
       <div id="main-img-container">
-        <img src={displayImg[displayImgNum]} alt="" />
+        <img src={displayImg[displayImgNum]} alt="main" />
       </div>
       <button onClick={() => moveRight()}>{'>'}</button>
     </div>
@@ -41,4 +38,3 @@ function Main() {
 }
 
 export default Main;
-//
