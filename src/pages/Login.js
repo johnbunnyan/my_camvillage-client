@@ -89,7 +89,7 @@ function Login(props) {
   return (
     <div id='login-body'>
       <center>
-        <div>로고이미지 띄우기</div>
+        <Link to="/" id="login-title">캠빌리지</Link>
         <div className="login-field">
           <span>아이디:</span>
           <input type='text' name="UserId" onChange={onChange}></input>
@@ -100,6 +100,15 @@ function Login(props) {
         </div>
         <div id="login-btn">
           <button onClick={handleLogin}>로그인</button>
+          <Link to='/user/signup'>회원가입</Link>
+          <GoogleLogin
+            clientId={"709887458993-labrs9ggb2u6buvpmm1vrp5phvla90bs.apps.googleusercontent.com"}
+            buttonText="Login"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={'single_host_origin'}
+            render={renderProps => <button onClick={renderProps.onClick}>Login with Google</button>}
+          />
           <Route
             render={() => {
               if (ErrorMessage !== '') {
@@ -111,19 +120,7 @@ function Login(props) {
               }
             }}
           />
-          <GoogleLogin
-            clientId={process.env.GOOGLE_ID}
-            buttonText="Login"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy={'single_host_origin'}
-            render={renderProps => <button onClick={renderProps.onClick} 
-            style={
-              {display: 'block'}
-            }>Login with Google</button>}
-          />
-          <Link to='/user/signup'>회원가입</Link>
-        </div>   
+        </div>
       </center>
     </div>
   );

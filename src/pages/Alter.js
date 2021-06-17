@@ -81,6 +81,29 @@ function Alter() {
       useWebWorker: true,
     };
     
+    if(!imgFile) {
+      const formData = new FormData();
+      for (const prop in inputs) {
+        formData.append(prop, inputs[prop]);
+      }
+
+      axios
+        .put(`${process.env.REACT_APP_API_URL}/user/alter`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'multipart/form-data',
+          },
+          withCredentials: true,
+        })
+        .then(res => {
+          console.log(res.data);
+          dispatch(userAlter(res.data))
+          history.push(`/user/mypage`)
+        })
+    }
+    
     imageCompression(imgFile, options)
     .then(res => {
       console.log('test=', res);
@@ -88,7 +111,6 @@ function Alter() {
       reader.readAsDataURL(res);
       reader.onloadend = () => {
         const base64data = reader.result;
-        console.log(1)
         axios
         .put(`${process.env.REACT_APP_API_URL}/user/alter`,
         handleDataForm(base64data),
@@ -138,13 +160,17 @@ function Alter() {
       setImgFile(event.target.files[0]);
     }
   };
+  
+  function handleImageURL() {
+    if (imgBase64) return (<img src={imgBase64}></img>)
+  }
 
   return (
     <div id='alter-body'>
       <div id='alter-info'>
         <div id='alter-img'>
           <div id="alter-img-container">
-            <img src={imgBase64}></img>
+            {handleImageURL()}
           </div>
           <input type="file" name="image" accept="image/jpeg, image/jpg" onChange={handleImage}></input>
         </div>

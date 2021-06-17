@@ -20,7 +20,8 @@ function Search() {
         category: category,
         queryString: queryString
       })
-    .then(res => setSearchResults(res.data))
+    .then(res => {console.log(res.data)
+      setSearchResults(res.data)})
     .catch(e => {
       console.log(e);
       });
@@ -57,7 +58,7 @@ function Search() {
             id={id}
             description={description}
             price={price}
-            nickname={users.nickname} />
+            nickname={users[0].nickname} />
           )
         }
       </div>

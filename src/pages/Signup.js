@@ -48,6 +48,7 @@ function Signup(props) {
 
   // 정규식
   const checkWord = /\W/;
+  const checkKorean = /^[가-힣]+$/;
   const checkEm = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
   useEffect(() => {
@@ -77,11 +78,13 @@ function Signup(props) {
   }, [NickName])
 
   useEffect(() => {
-    const checkName = checkWord.exec(Name);
-    if (checkName) {
-      handleError('ErrorName', '이름란에 허용되지 않은 특수문자가 입력되었습니다.')
-    } else {
-      handleError('ErrorName', '')
+    if (Name) {
+      const checkName = checkKorean.exec(Name);
+      if (!checkName) {
+        handleError('ErrorName', '이름란에 허용되지 않은 특수문자가 입력되었습니다.')
+      } else {
+        handleError('ErrorName', '')
+      }
     }
   }, [Name])
 
@@ -139,7 +142,7 @@ function Signup(props) {
   return (
     <div id='signup-body'>
     <center>
-      <div>로고이미지 띄우기</div>
+      <Link to="/" id="signup-title">캠빌리지</Link>
       <div className="signup-field">
         <span>이름:</span>
         <input type='signupName' name="Name" onChange={onChange}></input>

@@ -6,9 +6,7 @@ import SearchBar from './SearchBar.js';
 function Nav() {
   return (
     <div id="nav-body">
-      <div id="nav-title">
-        <Link to="/">CamVillage</Link>
-      </div>
+      <Link to="/" id="nav-title">캠빌리지</Link>
       <SearchBar />
       <div id="nav-btn">
         <Link to="/item/upload">글쓰기</Link>

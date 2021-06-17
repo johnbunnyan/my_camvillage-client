@@ -19,6 +19,7 @@ const DOMAIN = "http://localhost:4000"
 export const userLogin = (data) => {
   const { id, user_id, name, nickname, email, google, user_image } = data;
   console.log({ id, user_id, name, nickname, email, google, user_image })
+  
   return {
     type: LOGIN,
     payload: {
@@ -38,7 +39,7 @@ export const userSignUp = (data) => {
     payload: {
       isLogin: false,
       userInfo: { id, user_id, name, nickname, email, user_image  },
-      isGoogle: google,
+      google: google,
     }
   }
 }

@@ -98,7 +98,13 @@ function Upload() {
       reader.readAsDataURL(event.target.files[0]);
       setImgFile(event.target.files[0]);
     }
+
+    
   };
+
+  function handleImageURL() {
+    if (imgBase64) return (<img src={imgBase64}></img>)
+  }
 
   function removeTag(i) {
     const newHashtag = [...hashtag];
@@ -110,7 +116,9 @@ function Upload() {
   };
 
   function inputKeyDown(event) {
-    console.log('enter');
+    if (event.isComposing || event.keyCode === 229) {
+      return;
+    }
     const val = event.target.value;
     if (event.key === "Enter" && val) {
       event.preventDefault();
@@ -119,8 +127,9 @@ function Upload() {
         ...inputs,
         hashtag: [...hashtag, val],
       });
-      console.log(event.target.value)
       event.target.value = null;
+      console.log(event.target.value)
+      
     } else if (event.key === "Backspace" && !val) {
       removeTag(hashtag.length - 1);
     }
@@ -130,7 +139,7 @@ function Upload() {
     <form id="upload-body" onSubmit={handleSubmit}>
       <div id="upload-img">
         <div id="upload-img-container">
-          <img src={imgBase64}></img>
+          {handleImageURL()}
         </div>
         <input type="file" name="image" accept="image/jpeg, image/jpg" onChange={handleImage}></input>
       </div>
