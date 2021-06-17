@@ -103,7 +103,7 @@ function Login(props) {
         <div id="login-btn">
           <button onClick={handleLogin}>로그인</button>
           <GoogleLogin
-            clientId="709887458993-labrs9ggb2u6buvpmm1vrp5phvla90bs.apps.googleusercontent.com"
+            clientId=""
             buttonText="Login"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
