@@ -87,7 +87,7 @@ function Alter() {
         const base64data = reader.result;
         console.log(1)
         axios
-        .post('http://localhost:4000/user/alter',
+        .post(`${process.env.REACT_APP_API_URL}/user/alter`,
         handleDataForm(base64data),
         {
           headers: {

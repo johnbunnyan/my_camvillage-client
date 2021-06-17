@@ -13,7 +13,7 @@ function Search() {
   useEffect(() => {
     console.log(category, queryString)
     axios
-    .post('http://localhost:4000/search',
+    .post(`${process.env.REACT_APP_API_URL}/search`,
       {
         category: category,
         queryString: queryString

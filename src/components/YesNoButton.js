@@ -16,7 +16,7 @@ function YesNoButton(props) {
     })
     //new api, post request 진행 중
     axios
-    .put("http://localhost:4000/item/confirmation",
+    .put(`${process.env.REACT_APP_API_URL}/item/confirmation`,
     {
       post_id: postId, // request의 아이디 찾을수 있는지 확인 필요
       userId: user_id,

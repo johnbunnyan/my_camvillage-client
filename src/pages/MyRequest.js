@@ -13,7 +13,8 @@ function MyRequest() {
 
   function getSent() {
     axios
-    .get('http://localhost:4000/user/request', {
+    .get(`${process.env.REACT_APP_API_URL}/user/request`, 
+    {
       headers: {
         Authorization: `Bearer ${state.accessToken}`,
         'Content-Type': 'application/json',
@@ -28,7 +29,8 @@ function MyRequest() {
   }
 
   function getReceived() {
-    axios.get('http://localhost:4000/user/requested', {
+    axios.get(`${process.env.REACT_APP_API_URL}/user/requested`, 
+    {
       headers: {
         Authorization: `Bearer ${state.accessToken}`,
         'Content-Type': 'application/json',

@@ -106,7 +106,7 @@ function Signup(props) {
       handleError('ErrorAll', '')
 
       axios
-        .post('http://localhost:4000/user/signup',
+        .post(`${process.env.REACT_APP_API_URL}/user/signup`,
           {
             user_id: UserId,
             password: Password,
