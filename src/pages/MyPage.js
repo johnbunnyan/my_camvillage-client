@@ -10,7 +10,6 @@ import PrevWButton from '../components/PrevWButton';
 import PrevWStatus from '../components/PrevWStatus';
 
 function MyPage() {
-
   const state = useSelector((state) => state);
   console.log('MyPage state = ', state)
   const dispatch = useDispatch();
@@ -94,13 +93,15 @@ function MyPage() {
   useEffect(() => { getReceived() }, [])
   useEffect(() => { getPost() }, [])
 
-
+  function handleImageURL(image) {
+    return `http://localhost:4000/${image}`
+  }
 
   return (
     <div id="mypage-body">
       <div id="mypage-top">
         <div id="mypage-img">
-          <img src={state.userInfo.image} alt="mypage-img"></img>
+          <img src={handleImageURL(state.userInfo.user_image)} alt="mypage-img"></img>
         </div>
         <div id="mypage-info">
           <div>

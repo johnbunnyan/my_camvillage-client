@@ -3,12 +3,13 @@ import axios from "axios";
 import { userAlter } from '../actions/index';
 import { withRouter, Route, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
+import imageCompression from "browser-image-compression";
 
 function Alter() {
   const history = useHistory();
   const state = useSelector((state) => state)
-  // console.log('Alter state = ', state)
-  
+  const accessToken = useSelector(state => state.accessToken);
+
   const dispatch = useDispatch();
 
   const [inputs, setInputs] = useState({
@@ -26,6 +27,8 @@ function Alter() {
     ErrorPassword: '',
   })
   const { ErrorAll, ErrorPassword } = errorInputs;
+  const [imgBase64, setImgBase64] = useState("");
+  const [imgFile, setImgFile] = useState(null);
 
   const onChange = (e) => {
     const {value, name} = e.currentTarget;
@@ -52,7 +55,6 @@ function Alter() {
   }, [ConfirmPassword, Password])
 
   const handleAlter = () => {
-  
     console.log('userId', UserId, 'password', Password, 'nickname', NickName, 'Name', Name, 'Email', Email)
 
     const isTrue = UserId !== '' && Password !== '' &&
@@ -64,42 +66,84 @@ function Alter() {
     } else {
       handleError('ErrorAll', '')
       console.log(errorInputs)
-      axios
-      .put(`${process.env.REACT_APP_API_URL}/user/alter`,
-      {
-        user_id: UserId,
-        password: Password,
-        nickname: NickName,
-        email: Email,
-      },
-      {
-        headers: {
-          'Authorization': `Bearer ${state.accessToken}`,
-          'Content-Type': 'application/json',
-        },
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log(res.data)
-        dispatch(userAlter(res.data))
-      })
-      .then((res) => {
-        console.log('회원정보수정에 성공했습니다');
-        history.push('/user/mypage')
-      })
-      .catch((e) => {
-        console.log(e)
-      })
+      handleSubmit();
     }
-    }
+  }
+
+  function handleSubmit() {
+    console.log("압축 시작");
   
+    const options = {
+      maxSizeMB: 0.2,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+    
+    imageCompression(imgFile, options)
+    .then(res => {
+      const reader = new FileReader();
+      reader.readAsDataURL(res);
+      reader.onloadend = () => {
+        const base64data = reader.result;
+        console.log(1)
+        axios
+        .post(`${process.env.REACT_APP_API_URL}/user/alter`,
+        handleDataForm(base64data),
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'multipart/form-data',
+          },
+          withCredentials: true,
+        })
+        .then(res => {
+          console.log(res.data);
+          dispatch(userAlter(res.data))
+          history.push(`user/mypage`)
+        })
+      }
+    })
+    .catch(e => console.log(e));
+  }
+
+  const handleDataForm = dataURI => {
+    const byteString = atob(dataURI.split(",")[1]);
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([ia], { type: "image/jpeg" });
+    const file = new File([blob], "image.jpg");
+  
+    const formData = new FormData();
+    formData.append("user_image", file);
+    for (const prop in inputs) {
+      formData.append(prop, inputs[prop]);
+    }
+    return formData;
+  };
+  
+  function handleImage(event) {
+    let reader = new FileReader();
+    reader.onloadend = () => {
+      const base64 = reader.result;
+      if (base64) setImgBase64(base64.toString());
+    }
+    if (event.target.files[0]) {
+      reader.readAsDataURL(event.target.files[0]);
+      setImgFile(event.target.files[0]);
+    }
+  };
 
   return (
     <div id='alter-body'>
       <div id='alter-info'>
         <div id='alter-img'>
-          <img alt="user_image"></img>
-          <button id="alter-img-btn">사진 추가/변경</button>
+          <div id="alter-img-container">
+            <img src={imgBase64}></img>
+          </div>
+          <input type="file" name="image" accept="image/jpeg, image/jpg" onChange={handleImage}></input>
         </div>
         <div id='alter-input'>
           <div id='alter-name'>
@@ -120,11 +164,11 @@ function Alter() {
           </div>
           <div>
             <label htmlFor="Password">비밀번호:</label>
-            <input name="Password" onChange={onChange}></input>
+            <input type="password" name="Password" onChange={onChange}></input>
           </div>
           <div>
             <label htmlFor="ConfirmPassword">비밀번호 확인:</label>
-            <input name="ConfirmPassword" onChange={onChange}></input>
+            <input type="password" name="ConfirmPassword" onChange={onChange}></input>
           </div>
         </div>
       </div>

@@ -44,7 +44,7 @@ function Login(props) {
             withCredentials: true,
           })
         .then((res) => {
-          console.log(res.data)
+          console.log('login', res.data)
           dispatch(userLogin(res.data))
         })
         .then(res => {
@@ -75,17 +75,13 @@ function Login(props) {
       withCredentials: true,
     })
     .then(res => {
-      console.log(res.data)
+      console.log(res)
       dispatch(userLogin(res.data))
     })
     .then(res =>{
       console.log('소셜 로그인에 성공했습니다.');
       props.history.push('/')
     })
-  }
-
-  const logout = () => {
-    console.log('logout')
   }
 
   return (
@@ -103,7 +99,7 @@ function Login(props) {
         <div id="login-btn">
           <button onClick={handleLogin}>로그인</button>
           <GoogleLogin
-            clientId=""
+            clientId={"709887458993-labrs9ggb2u6buvpmm1vrp5phvla90bs.apps.googleusercontent.com"}
             buttonText="Login"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}

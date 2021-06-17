@@ -18,7 +18,6 @@ function Item() {
 
   const post_id = window.location.pathname.slice(6);
   const [itemInfo, setItemInfo] = useState({});
-  const [image, setImage] = useState("");
 
     //   {
     //     "id": PK,
@@ -35,7 +34,7 @@ function Item() {
     //     "updatedAt": "updatedAt",
     //     "categoryId": "categoryId"
     // }
-  const { id, title, description, brand, price, hashtag, category, nickname } = itemInfo;
+  const { id, title, description, brand, price, hashtag, category, nickname, image} = itemInfo;
   
   useEffect(() => {
     axios
@@ -44,12 +43,7 @@ function Item() {
       post_id: post_id
     })
     .then(res =>{
-      if (res.data.images) {
-        let buff = new Buffer(res.data.images[0], "base64");
-        let text = buff.toString("ascii");
-        setImage(`data:image/png;base64,${text}`)
-      }
-      setItemInfo(res.data)
+      setItemInfo(res.data);
     })
     .catch(e => console.log(e));
   }, [post_id])
@@ -72,12 +66,15 @@ function Item() {
     dispatch(setQueryString(e.target.value));
     dispatch(setCategory('hashtag'));
     history.push(`/search?q=${e.target.value}&cat=hashtag`)
+    
+  function handleImageURL(image) {
+    return `http://localhost:4000/${image}`
   }
 
   return (
     <div id="item-body">
       <div className="item-img-container">
-        <img className="item-img" src={image} alt={`item #${id}`}></img>
+        <img className="item-img" src={handleImageURL(image)} alt={`item #${id}`}></img>
       </div>
       <div id="item-info-container">
           <div id="item-title">{title}</div>

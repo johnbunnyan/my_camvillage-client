@@ -17,13 +17,13 @@ const DOMAIN = "http://localhost:4000"
 
 // actions creator functions
 export const userLogin = (data) => {
-  console.log(data)
-  const { id, user_id, name, nickname, email, google } = data;
+  const { id, user_id, name, nickname, email, google, user_image } = data;
+  console.log({ id, user_id, name, nickname, email, google, user_image })
   return {
     type: LOGIN,
     payload: {
       isLogin: true,
-      userInfo: { id, user_id, name, nickname, email },
+      userInfo: { id, user_id, name, nickname, email, user_image },
       accessToken: data.accessToken,
       google: google,
     }
@@ -32,12 +32,12 @@ export const userLogin = (data) => {
 
 export const userSignUp = (data) => {
   console.log(data)
-  const { id, user_id, name, nickname, email, google } = data;
+  const { id, user_id, name, nickname, email, google, user_image } = data;
   return {
     type: SIGNUP,
     payload: {
       isLogin: false,
-      userInfo: { id, user_id, name, nickname, email },
+      userInfo: { id, user_id, name, nickname, email, user_image  },
       isGoogle: google,
     }
   }
@@ -46,7 +46,7 @@ export const userSignUp = (data) => {
 
 export const userAlter = (data) => {
 
-  const { id, user_id, nickname, email } = data;
+  const { id, user_id, nickname, email, user_image } = data;
   return {
     type: ALTER,
     payload: {

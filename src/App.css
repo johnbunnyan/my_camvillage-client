@@ -197,7 +197,7 @@ select:focus, input:focus {
 }
 
 #login-btn .alert-box {
-    background-color: var(--charcoal1);
+    background-color: var(--charcoal);
     margin-top: 0px;
     height: 1rem;
     padding: 10px;
@@ -247,7 +247,7 @@ select:focus, input:focus {
 }
 
 #signup-btn .alert-box {
-    background-color: var(--charcoal1);
+    background-color: var(--charcoal);
     margin-top: 0px;
     height: 1rem;
     padding: 10px;
@@ -328,6 +328,18 @@ select:focus, input:focus {
 #mypage-img, #mypage-info {
     background-color: var(--overlay);
     padding: 20px;
+}
+
+#mypage-img {
+    background-color: var(--charcoal2);
+    width: 200px;
+    height: 200px;
+}
+
+#mypage-body img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
 }
 
 #mypage-info > div {
@@ -449,16 +461,25 @@ select:focus, input:focus {
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 300px;
+}
+
+#alter-info > * {
+    margin: 20px;
 }
 
 #alter-img {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    width: 300px;
 }
 
-#alter-img * {
-    display: block;
+#alter-img > * {
     margin: 10px 0px;
+}
+
+#alter-img input {
+    width: 100%;
 }
 
 #alter-body label, #alter-name-label {
@@ -469,7 +490,7 @@ select:focus, input:focus {
     margin: 0px 15px;
 }
 
-#alter-body input, #alter-name-display {
+#alter-input input, #alter-name-display {
     min-width: 200px;
     text-align: left;
     padding: 5px 10px;
@@ -497,10 +518,22 @@ select:focus, input:focus {
 
 #alter-btn .alert-box {
     text-align: center;
-    background-color: var(--charcoal1);
+    background-color: var(--charcoal);
     margin-top: 0px;
     height: 1rem;
     padding: 10px;
+}
+
+#alter-img-container {
+    background-color: var(--charcoal2);
+    width: 200px;
+    height: 200px;
+}
+
+#alter-body img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
 }
 
 /* item */
@@ -590,6 +623,7 @@ hr {
     justify-content: center;
     align-items: center;
     flex-grow: 1;
+    padding: 30px 0px;
 }
 
 .upload-form * {
@@ -661,6 +695,29 @@ hr {
 
 #upload-btn {
     padding: 10px 40px;
+}
+
+#upload-img {
+    display: flex;
+    align-items: flex-end;
+}
+
+#upload-img input {
+    flex-grow: 1;
+    height: 2.5rem;
+    margin-left: 20px;
+}
+
+#upload-img-container {
+    background-color: var(--charcoal2);
+    width: 200px;
+    height: 200px;
+}
+
+#upload-body img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
 }
 
 /* search */

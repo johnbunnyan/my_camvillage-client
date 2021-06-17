@@ -6,8 +6,12 @@ import imageCompression from "browser-image-compression";
 
 function Upload() {
   const history = useHistory();
-  const [rawImage, setRawImage] = useState({});
+  const user_id = useSelector(state => state.userInfo.user_id);
+
+  const [imgBase64, setImgBase64] = useState(""); // 파일 base64
+  const [imgFile, setImgFile] = useState(null);	//파일	
   const [inputs, setInputs] = useState({
+    user_id: user_id,
     title: '',
     hashtag: [],
     category: '',
@@ -39,7 +43,7 @@ function Upload() {
       useWebWorker: true,
     };
     
-    imageCompression(rawImage, options)
+    imageCompression(imgFile, options)
     .then(res => {
       const reader = new FileReader();
       reader.readAsDataURL(res);
@@ -55,9 +59,11 @@ function Upload() {
           },
           withCredentials: true,
         })
-        // .then(res => {
-        //   history.push(`item/${res.data.id}`)
-        // })
+        .then(res => {
+          console.log(res);
+          console.log('upload successful')
+          history.push(`${res.data.posts[0].post_user.postId}`)
+        })
       }
     })
     .catch(e => console.log(e));
@@ -82,8 +88,15 @@ function Upload() {
   };
 
   function handleImage(event) {
-    const imageFile = event.target.files[0];
-    setRawImage(imageFile);
+    let reader = new FileReader();
+    reader.onloadend = () => {
+      const base64 = reader.result;
+      if (base64) setImgBase64(base64.toString());
+    }
+    if (event.target.files[0]) {
+      reader.readAsDataURL(event.target.files[0]);
+      setImgFile(event.target.files[0]);
+    }
   };
 
   function removeTag(i) {
@@ -114,7 +127,12 @@ function Upload() {
 
   return (
     <form id="upload-body" onSubmit={handleSubmit}>
-      <input type="file" name="image" accept="image/jpeg, image/jpg" onChange={handleImage}></input>
+      <div id="upload-img">
+        <div id="upload-img-container">
+          <img src={imgBase64}></img>
+        </div>
+        <input type="file" name="image" accept="image/jpeg, image/jpg" onChange={handleImage}></input>
+      </div>
       <div id="upload-form">
         <div id='upload-form-title'>
           <label htmlFor="title">제목:</label>

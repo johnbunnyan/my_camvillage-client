@@ -170,11 +170,11 @@ function Signup(props) {
       </div>
       <div className="signup-field">
         <span>비밀번호:</span>
-        <input type='signupPassword' name="Password" onChange={onChange}></input>
+        <input type='password' name="Password" onChange={onChange}></input>
       </div>
       <div className="signup-field">
         <span>비밀번호 확인:</span>
-        <input type='signupConfirmPassword' name="ConfirmPassword" onChange={onChange}></input>
+        <input type='password' name="ConfirmPassword" onChange={onChange}></input>
         <Route
           render={() => {
             if (ErrorPassword !== '') {
