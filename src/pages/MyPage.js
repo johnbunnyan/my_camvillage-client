@@ -9,6 +9,8 @@ import PrevWTitle from '../components/PrevWTitle';
 import PrevWButton from '../components/PrevWButton';
 import PrevWStatus from '../components/PrevWStatus';
 
+require("dotenv").config();
+
 function MyPage() {
   const state = useSelector((state) => state);
   console.log('MyPage state = ', state)
@@ -50,6 +52,7 @@ function MyPage() {
         })
       .then(res => {
         setReceivedRequests(res.data.request)
+        console.log(res.data.request)
       })
       .then(res => {
         console.log('receivedRequests = ', receivedRequests);
@@ -94,7 +97,7 @@ function MyPage() {
   useEffect(() => { getPost() }, [])
 
   function handleImageURL(image) {
-    return `http://localhost:4000/${image}`
+    return `${process.env.REACT_APP_API_URL}/${image}`
   }
 
   return (
@@ -149,8 +152,9 @@ function MyPage() {
             <div id="mypage-received-request">
               <div id="mypage-received-request-title">받은 요청</div>
               {
-                receivedRequests.map(({ image, title, id, confirmation }) =>
+                receivedRequests.map(({ image, title, id, confirmation, userId}) =>
                   <PrevWButton
+                    requestid={userId}
                     image={image}
                     title={title}
                     id={id}

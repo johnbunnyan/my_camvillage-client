@@ -4,7 +4,7 @@ import YesNoButton from './YesNoButton'
 
 //수신 요청 미리보기 (썸넬 + 제목 +  버튼 or 내 응답) PrevWButton
 
-function PrevWButton({ image, title, id, confirmation }) {
+function PrevWButton({ image, title, id, confirmation, requestid }) {
   // {
   //   "id": PK,
   //   "userId": my id,
@@ -15,6 +15,7 @@ function PrevWButton({ image, title, id, confirmation }) {
   //   "createdAt": "createdAt",
   //   "updatedAt": "updatedAt"
   // }
+  console.log({ image, title, id, confirmation, requestid })
   const history = useHistory();
 
   function handleClick(event) {
@@ -28,7 +29,7 @@ function PrevWButton({ image, title, id, confirmation }) {
         <img className="preview-img" src={image} alt={`item #${id}`}></img>
       </div>
       <div className="preview-title" id={id} onClick={handleClick}>{title}</div>
-      <YesNoButton confirmation={confirmation}/>
+      <YesNoButton confirmation={confirmation} requestid={requestid}/>
     </div>
   );
 }

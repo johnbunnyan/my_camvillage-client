@@ -1,13 +1,15 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
+require("dotenv").config();
+
 function Main() {
   const [displayImg, setDisplayImg] = useState([]);
   const [displayImgNum, setDisplayImgNum] = useState(0);
 
   useEffect(() => {
     axios
-    .get(`${process.env.REACT_APP_API_URL}/user/main`,
+    .get(`${process.env.REACT_APP_API_URL}/main`,
     {
       'Content-Type': 'application/json',
       withCredentials: true,

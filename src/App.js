@@ -18,7 +18,6 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-require("dotenv").config();
 
 require("dotenv").config();
 

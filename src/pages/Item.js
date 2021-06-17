@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Route } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { setCategory, setQueryString } from '../actions';
+
+require("dotenv").config();
 // not found api 추가
 function Item() {
 
@@ -66,9 +68,10 @@ function Item() {
     dispatch(setQueryString(e.target.value));
     dispatch(setCategory('hashtag'));
     history.push(`/search?q=${e.target.value}&cat=hashtag`)
+  }
     
   function handleImageURL(image) {
-    return `http://localhost:4000/${image}`
+    return `${process.env.REACT_APP_API_URL}/${image}`
   }
 
   return (

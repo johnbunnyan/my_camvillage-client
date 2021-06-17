@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import PrevWButton from '../components/PrevWButton';
 import PrevWStatus from '../components/PrevWStatus';
 
+require("dotenv").config();
+
 function MyRequest() {
   const state = useSelector(state => state);
   console.log(state)
