@@ -25,7 +25,7 @@ export const userLogin = (data) => {
       isLogin: true,
       userInfo: { id, user_id, name, nickname, email },
       accessToken: data.accessToken,
-      isGoogle: google,
+      google: google,
     }
   }
 }

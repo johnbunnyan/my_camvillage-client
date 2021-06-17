@@ -7,7 +7,7 @@ function Main() {
 
   useEffect(() => {
     axios
-    .get('http://localhost:4000/main',
+    .get(`${process.env.REACT_APP_API_URL}/user/main`,
     {
       'Content-Type': 'application/json',
       withCredentials: true,

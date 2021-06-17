@@ -14,7 +14,7 @@ export const initialState =
     category: 'title',
     queryString: ''
   },
-  isGoogle: 0,
+  google: 0,
   items: [],
 
   itemCategory: ['주거용품', '가구용품', '취침용품', '주방용품', '악세사리', '기타용품', '방한용품'],

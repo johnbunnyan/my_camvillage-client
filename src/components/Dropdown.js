@@ -13,7 +13,7 @@ function Dropdown() {
     console.log('state')
     console.log(state)
     axios
-      .post('http://localhost:4000/user/logout',
+      .post(`${process.env.REACT_APP_API_URL}/user/logout`,
         {
           headers: {
             Authorization: `Bearer ${state.accessToken}`,
