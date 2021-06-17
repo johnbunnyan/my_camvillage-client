@@ -5,6 +5,8 @@ import { withRouter, Route, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import imageCompression from "browser-image-compression";
 
+require("dotenv").config();
+
 function Alter() {
   const history = useHistory();
   const state = useSelector((state) => state)
@@ -87,7 +89,7 @@ function Alter() {
         const base64data = reader.result;
         console.log(1)
         axios
-        .post(`${process.env.REACT_APP_API_URL}/user/alter`,
+        .put(`${process.env.REACT_APP_API_URL}/user/alter`,
         handleDataForm(base64data),
         {
           headers: {
@@ -99,7 +101,7 @@ function Alter() {
         .then(res => {
           console.log(res.data);
           dispatch(userAlter(res.data))
-          history.push(`user/mypage`)
+          history.push(`/mypage`)
         })
       }
     })

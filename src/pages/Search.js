@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import PrevWContent from '../components/PrevWContent';
 
+require("dotenv").config();
+
 function Search() {
   const [searchResults, setSearchResults] = useState([]);
   const [searchMessage, setSearchMessage] = useState('');
@@ -55,7 +57,7 @@ function Search() {
             id={id}
             description={description}
             price={price}
-            nickname={users[0].nickname} />
+            nickname={users.nickname} />
           )
         }
       </div>

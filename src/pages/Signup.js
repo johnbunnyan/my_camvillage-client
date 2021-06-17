@@ -4,6 +4,8 @@ import { userSignUp } from '../actions/index';
 import { Link, withRouter, Route } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 
+require("dotenv").config();
+
 function Signup(props) {
 
   const dispatch = useDispatch();

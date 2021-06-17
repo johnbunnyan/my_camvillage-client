@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import imageCompression from "browser-image-compression";
 
+require("dotenv").config();
 function Upload() {
   const history = useHistory();
   const user_id = useSelector(state => state.userInfo.user_id);

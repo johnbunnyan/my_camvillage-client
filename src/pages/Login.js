@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import {GoogleLogin, GoogleLogout} from 'react-google-login';
 import { useSelector } from 'react-redux';
 
+require("dotenv").config();
+
 function Login(props) {
   const state = useSelector(state => state);
   console.log(state)
