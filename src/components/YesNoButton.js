@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useSelector } from "react-redux";
 
 function YesNoButton(props) {
-  console.log(props.requestid);
+  console.log(props);
   const [confirmation, setConfirmation] = useState(props.confirmation);
   const user_id = props.requestid
 

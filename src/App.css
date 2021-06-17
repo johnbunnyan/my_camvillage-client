@@ -234,6 +234,7 @@ select:focus, input:focus, textarea:focus {
     display: inline-block;
     min-width: 100px;
     text-align: left;
+    margin-right: 20px;
 }
 
 #signup-body input {
@@ -241,7 +242,7 @@ select:focus, input:focus, textarea:focus {
 }
 
 .signup-field {
-    min-height: 4rem;
+    min-height: 3rem;
 }
 
 #signup-body a {
@@ -542,7 +543,7 @@ select:focus, input:focus, textarea:focus {
 }
 
 #alter-btn * {
-    width: 190px;
+    width: 210px;
     background-color: var(--charcoal2);
     padding: 10px;
     height: 2.5rem;

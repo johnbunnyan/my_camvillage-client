@@ -14,15 +14,16 @@ function PrevWStatus({ image, title, id, confirmation }) {
   //   "createdAt": "createdAt",
   //   "updatedAt": "updatedAt"
   // }
+  console.log({ image, title, id, confirmation })
   const history = useHistory();
   
   function statusMessage(confirmation) {
     switch (confirmation) {
       case '0':
         return '아직 답이 없어요!';
-      case '1':
-        return '거절 ㅠㅠ';
       case '2':
+        return '거절 ㅠㅠ';
+      case '1':
         return '승낙 ^^';
       default:
         break;
