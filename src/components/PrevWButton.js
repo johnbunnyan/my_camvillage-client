@@ -23,10 +23,14 @@ function PrevWButton({ image, title, id, confirmation, requestid }) {
     history.push(`/item/${event.target.id}`)
   }
 
+  function handleImageURL(image) {
+    return `${process.env.REACT_APP_API_URL}/${image}`
+  }
+
   return (
     <div className="prevwbutton-body">
       <div className="preview-img-container">
-        <img className="preview-img" src={image} alt={`item #${id}`}></img>
+        <img className="preview-img" src={handleImageURL(image)} alt={`item #${id}`}></img>
       </div>
       <div className="preview-title" id={id} onClick={handleClick}>{title}</div>
       <YesNoButton confirmation={confirmation} requestid={requestid}/>

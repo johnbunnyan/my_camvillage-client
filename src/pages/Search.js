@@ -50,14 +50,14 @@ function Search() {
       <div id="search-message">{searchMessage}</div>
       <div id="search-results">
         {
-          searchResults.map(({ image, title, id, description, price, users }) => 
+          searchResults.map(({ image, title, id, description, price, nickname }) => 
             <PrevWContent
             image={image}
             title={title}
             id={id}
             description={description}
             price={price}
-            nickname={users.nickname} />
+            nickname={nickname} />
           )
         }
       </div>

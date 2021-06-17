@@ -139,7 +139,7 @@ function Signup(props) {
   return (
     <div id='signup-body'>
     <center>
-      <div>로고이미지 띄우기</div>
+      <Link to="/" id="signup-title">캠빌리지</Link>
       <div className="signup-field">
         <span>이름:</span>
         <input type='signupName' name="Name" onChange={onChange}></input>

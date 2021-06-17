@@ -89,7 +89,6 @@ function MyPage() {
 
   function handleClickMessage() {
     history.push('/user/request')
-    
   }
 
   useEffect(() => { getSent() }, [])
@@ -98,6 +97,94 @@ function MyPage() {
 
   function handleImageURL(image) {
     return `${process.env.REACT_APP_API_URL}/${image}`
+  }
+
+  function showPosts() {
+    let posts = getPosts.slice(0, 3);
+    if (posts.length < 3) {
+      while (posts.length < 3) {
+        posts.push('dummy');
+      }
+    }
+
+    return posts.map((post, index) => {
+      if (post === 'dummy') {
+        return (
+          <div className="prevwtitle-body">
+            <div className="preview-img-container">
+            </div>
+            <div className="preview-title"></div>
+          </div>
+        )
+      }
+      return (
+        <PrevWTitle
+          image={post.image}
+          title={post.title}
+          id={post.id}
+          key={index}
+        />
+      )
+    })
+  }
+
+  function showSent() {
+    let sent = sentRequests.slice(0, 3);
+    if (sent.length < 3) {
+      while (sent.length < 3) {
+        sent.push('dummy');
+      }
+    }
+
+    return sent.map(post => {
+      if (post === 'dummy') {
+        return (
+          <div className="prevwstatus-body">
+            <div className="preview-img-container">
+            </div>
+            <div className="preview-title"></div>
+          </div>
+        )
+      }
+      return (
+        <PrevWStatus
+          image={post.image}
+          title={post.title}
+          id={post.id}
+          confirmation={post.confirmation}
+        />
+      )
+    })
+  }
+
+  function showReceived() {
+    let received = receivedRequests.slice(0, 3);
+    if (received.length < 3) {
+      while (received.length < 3) {
+        received.push('dummy');
+      }
+    }
+
+    return received.map(post => {
+      if (post === 'dummy') {
+        return (
+          <div className="prevwbutton-body">
+            <div className="preview-img-container">
+            </div>
+            <div className="preview-title"></div>
+          </div>
+        )
+      }
+      return (
+        <PrevWButton
+          requestid={post.userId}
+          image={post.image}
+          title={post.title}
+          id={post.id}
+          confirmation={post.confirmation}
+        />
+      )
+    })
   }
 
   return (
@@ -132,16 +219,7 @@ function MyPage() {
         <div id="mypage-post">
           <div id="mypage-post-title">나의 작성글</div>
           <div id="post-container">
-            {getPosts.map(({ image, title, id }, index) => {
-              return (
-                <PrevWTitle
-                  image={image}
-                  title={title}
-                  id={id}
-                  key={index}
-                />
-              )
-            }).slice(0, 3)}
+            {showPosts()}
           </div>
         <div className="btn-container">
           <button id="mypage-post-btn" onClick={handleClickPost}>더보기</button>
@@ -151,28 +229,11 @@ function MyPage() {
           <div id="request-container">
             <div id="mypage-received-request">
               <div id="mypage-received-request-title">받은 요청</div>
-              {
-                receivedRequests.map(({ image, title, id, confirmation, userId}) =>
-                  <PrevWButton
-                    requestid={userId}
-                    image={image}
-                    title={title}
-                    id={id}
-                    confirmation={confirmation}
-                  />).slice(0,3)
-              } 
+              {showReceived()} 
             </div>
             <div id="mypage-sent-request">
               <div id="mypage-sent-request-title">보낸 요청</div>
-              {
-                sentRequests.map(({ image, title, id, confirmation }) =>
-                  <PrevWStatus
-                    image={image}
-                    title={title}
-                    id={id}
-                    confirmation={confirmation}
-                  />).slice(0,3)
-              } 
+              {showSent()} 
             </div>
           </div>
           <div className="btn-container">

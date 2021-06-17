@@ -110,7 +110,9 @@ function Upload() {
   };
 
   function inputKeyDown(event) {
-    console.log('enter');
+    if (event.isComposing || event.keyCode === 229) {
+      return;
+    }
     const val = event.target.value;
     if (event.key === "Enter" && val) {
       event.preventDefault();
@@ -119,8 +121,9 @@ function Upload() {
         ...inputs,
         hashtag: [...hashtag, val],
       });
-      console.log(event.target.value)
       event.target.value = null;
+      console.log(event.target.value)
+      
     } else if (event.key === "Backspace" && !val) {
       removeTag(hashtag.length - 1);
     }
