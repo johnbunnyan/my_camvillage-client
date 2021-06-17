@@ -96,7 +96,9 @@ function MyPage() {
   useEffect(() => { getPost() }, [])
 
   function handleImageURL(image) {
-    return `${process.env.REACT_APP_API_URL}/${image}`
+    if(image) {
+      return (<img src={`${process.env.REACT_APP_API_URL}/${image}`} alt="mypage-img"></img>)
+    }
   }
 
   function showPosts() {
@@ -191,7 +193,7 @@ function MyPage() {
     <div id="mypage-body">
       <div id="mypage-top">
         <div id="mypage-img">
-          <img src={handleImageURL(state.userInfo.user_image)} alt="mypage-img"></img>
+          {handleImageURL(state.userInfo.user_image)}
         </div>
         <div id="mypage-info">
           <div>

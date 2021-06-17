@@ -20,7 +20,8 @@ function Search() {
         category: category,
         queryString: queryString
       })
-    .then(res => setSearchResults(res.data))
+    .then(res => {console.log(res.data)
+      setSearchResults(res.data)})
     .catch(e => {
       console.log(e);
       });
@@ -50,14 +51,14 @@ function Search() {
       <div id="search-message">{searchMessage}</div>
       <div id="search-results">
         {
-          searchResults.map(({ image, title, id, description, price, nickname }) => 
+          searchResults.map(({ image, title, id, description, price, users }) => 
             <PrevWContent
             image={image}
             title={title}
             id={id}
             description={description}
             price={price}
-            nickname={nickname} />
+            nickname={users[0].nickname} />
           )
         }
       </div>

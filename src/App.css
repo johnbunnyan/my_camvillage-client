@@ -799,7 +799,7 @@ hr {
     height: 70px;
 }
 
-.preview-img {
+.preview-img-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
