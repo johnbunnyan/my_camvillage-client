@@ -65,7 +65,7 @@ function Alter() {
       handleError('ErrorAll', '')
       console.log(errorInputs)
       axios
-      .put('http://localhost:4000/user/alter',
+      .put(`${process.env.REACT_APP_API_URL}/user/alter`,
       {
         user_id: UserId,
         password: Password,

@@ -22,7 +22,7 @@ function MyPage() {
 
   function getSent() {
     axios
-      .get('http://localhost:4000/user/request',
+      .get(`${process.env.REACT_APP_API_URL}/user/request`,
         {
           headers: {
             'Authorization': `Bearer ${state.accessToken}`,
@@ -41,7 +41,7 @@ function MyPage() {
 
   function getReceived() {
     axios
-      .get('http://localhost:4000/user/requested',
+      .get(`${process.env.REACT_APP_API_URL}/user/requested`,
         {
           headers: {
             'Authorization': `Bearer ${state.accessToken}`,
@@ -62,7 +62,7 @@ function MyPage() {
 
   function getPost() {
     axios
-      .post('http://localhost:4000/search',
+      .post(`${process.env.REACT_APP_API_URL}/search`,
         {
           category: 'nickname',
           queryString: state.userInfo.nickname,

@@ -1,10 +1,14 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
+import { setCategory, setQueryString } from '../actions';
 // not found api 추가
 function Item() {
+
+  const history = useHistory();
+  const dispatch = useDispatch();
   const { user_id, stateNickname } = useSelector(state => {
     return {
       user_id: state.userInfo.user_id,
@@ -52,7 +56,7 @@ function Item() {
 
   function sendRequest() {
     console.log('send a request')
-    axios.post('http://localhost:4000/item/request',
+    axios.post(`${process.env.REACT_APP_API_URL}/item/request`,
       {
         post_id: post_id,
         user_id: user_id
@@ -62,6 +66,12 @@ function Item() {
       }
       )
       .catch(e => console.log(e));
+  }
+
+  function handleClickPost(e) {
+    dispatch(setQueryString(e.target.value));
+    dispatch(setCategory('hashtag'));
+    history.push(`/search?q=${e.target.value}&cat=hashtag`)
   }
 
   return (
@@ -79,7 +89,7 @@ function Item() {
               return (
                 <div className="item-info">
                   <label htmlFor="item-hashtag">해시태그:</label>
-                  {hashtag.map(tag => <div>#{tag.name}</div>)}
+                  {hashtag.map(tag => <button value={tag.name} onClick={handleClickPost}>#{tag.name}</button>)}
                 </div>
               );
             } else {

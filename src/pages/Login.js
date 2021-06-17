@@ -6,9 +6,6 @@ import { useDispatch } from 'react-redux';
 import {GoogleLogin, GoogleLogout} from 'react-google-login';
 import { useSelector } from 'react-redux';
 
-require("dotenv").config();
-
-
 function Login(props) {
   const state = useSelector(state => state);
   console.log(state)
@@ -37,7 +34,7 @@ function Login(props) {
     } else {
       setErrorMessage('');
       axios
-        .post('http://localhost:4000/user/login',
+        .post(`${process.env.REACT_APP_API_URL}/user/login`,
           {
             user_id: UserId,
             password: Password
@@ -62,13 +59,13 @@ function Login(props) {
 
   const responseGoogle = (response) => {
     console.log(response.accessToken);
-    console.log(response.Ft.Ue);
+    console.log(response);
     axios
-    .post('http://localhost:4000/user/login/google',
+    .post(`${process.env.REACT_APP_API_URL}/user/login/google`,
     {
-      user_id: response.Ft.Ue,
-      nickname: response.Ft.Ue,
-      email: response.Ft.pu,
+      user_id: response.profileObj.email.split('@')[0],
+      nickname: response.profileObj.email.split('@')[0],
+      email: response.profileObj.email,
     },
     {
       headers: {
@@ -97,17 +94,16 @@ function Login(props) {
         <div>로고이미지 띄우기</div>
         <div className="login-field">
           <span>아이디:</span>
-          <input type='loginId' name="UserId" onChange={onChange}></input>
+          <input type='text' name="UserId" onChange={onChange}></input>
         </div>
         <div className="login-field">
           <span>비밀번호:</span>
-          <input type='loginPassword' name="Password" onChange={onChange}></input>
+          <input type='password' name="Password" onChange={onChange}></input>
         </div>
         <div id="login-btn">
-          <Link to='/user/signup'>회원가입</Link>
           <button onClick={handleLogin}>로그인</button>
           <GoogleLogin
-            clientId={"FILL_ME_IN"}
+            clientId=""
             buttonText="Login"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
@@ -129,6 +125,7 @@ function Login(props) {
             }}
           />
         </div>
+        <Link to='/user/signup'>회원가입</Link>
       </center>
     </div>
   );

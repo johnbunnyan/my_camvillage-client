@@ -46,7 +46,7 @@ function Upload() {
       reader.onloadend = () => {
         const base64data = reader.result;
         axios
-        .post('http://localhost:4000/item/upload',
+        .post(`${process.env.REACT_APP_API_URL}/item/upload`,
         handleDataForm(base64data),
         {
           headers: {
