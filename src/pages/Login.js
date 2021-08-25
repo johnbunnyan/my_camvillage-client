@@ -58,7 +58,32 @@ function Login(props) {
         })
     }
   }
-
+  const handleVisit = () => {
+   
+      setErrorMessage('');
+      axios
+        .post(`${process.env.REACT_APP_API_URL}/user/login`,
+          {
+            user_id: 'king',
+            password: 1234
+          },
+          {
+            'Content-Type': 'application/json',
+            withCredentials: true,
+          })
+        .then((res) => {
+          console.log('login', res.data)
+          dispatch(userLogin(res.data))
+        })
+        .then(res => {
+          console.log('로그인에 성공했습니다');
+          props.history.push('/')
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+    
+  }
   const responseGoogle = (response) => {
     console.log(response.accessToken);
     console.log(response);
@@ -99,6 +124,7 @@ function Login(props) {
           <input type='password' name="Password" onChange={onChange}></input>
         </div>
         <div id="login-btn">
+        <button onClick={handleVisit}>비회원으로 구경하기</button>
           <button onClick={handleLogin}>로그인</button>
           <Link to='/user/signup'>회원가입</Link>
           <GoogleLogin

@@ -40,7 +40,7 @@ function Item() {
   
   useEffect(() => {
     axios
-    .get(`http://localhost:4000/item/${post_id}`,
+    .get(`${process.env.REACT_APP_API_URL}/item/${post_id}`,
     {
       post_id: post_id
     })
