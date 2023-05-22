@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-
 require("dotenv").config();
 
 function Main() {
@@ -14,7 +13,9 @@ function Main() {
       'Content-Type': 'application/json',
       withCredentials: true,
     })
-    .then(res => setDisplayImg(res.data.map(i => i.image)))
+    .then(res => {
+      setDisplayImg(res.data.map(i => i.image))
+    })
     .catch(e => console.log(e));
   }, [])
   
@@ -32,7 +33,7 @@ function Main() {
     <div id="main-body">
       <button onClick={() => moveLeft()}>{'<'}</button>
       <div id="main-img-container">
-        <img src={displayImg[displayImgNum]} alt="main" />
+        <img src={process.env.PUBLIC_URL + displayImg[displayImgNum]} alt="main" />
       </div>
       <button onClick={() => moveRight()}>{'>'}</button>
     </div>

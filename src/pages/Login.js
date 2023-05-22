@@ -110,7 +110,7 @@ function Login(props) {
       props.history.push('/')
     })
   }
-
+console.log(process.env.REACT_APP_GOOGLE_KEY)
   return (
     <div id='login-body'>
       <center>
@@ -128,7 +128,7 @@ function Login(props) {
           <button onClick={handleLogin}>로그인</button>
           <Link to='/user/signup'>회원가입</Link>
           <GoogleLogin
-            clientId={"709887458993-labrs9ggb2u6buvpmm1vrp5phvla90bs.apps.googleusercontent.com"}
+            clientId={process.env.REACT_APP_GOOGLE_KEY}
             buttonText="Login"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}

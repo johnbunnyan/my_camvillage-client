@@ -32,6 +32,7 @@ function MyPage() {
           withCredentials: true,
         })
       .then(res => {
+        console.log(`🔴${JSON.stringify(res.data)}`)
         setSentRequests(res.data.request)
       })
       .then(res => {
@@ -52,7 +53,7 @@ function MyPage() {
         })
       .then(res => {
         setReceivedRequests(res.data.request)
-        console.log(res.data.request)
+        console.log(`📙${JSON.stringify(res.data.request)}`)
       })
       .then(res => {
         console.log('receivedRequests = ', receivedRequests);
@@ -168,6 +169,7 @@ function MyPage() {
     }
 
     return received.map(post => {
+      console.log(`💚${JSON.stringify(post)}`)
       if (post === 'dummy') {
         return (
           <div className="prevwbutton-body">

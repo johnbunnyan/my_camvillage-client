@@ -13,7 +13,7 @@ export const USERREQUEST = 'USERREQUEST';
 export const USERREQUESTED = 'USERREQUESTED';
 
 // 나중에 필요할 것 같아 미리 생성해 놓음
-const DOMAIN = "http://localhost:4000"
+const DOMAIN = "http://localhost:3000"
 
 // actions creator functions
 export const userLogin = (data) => {
